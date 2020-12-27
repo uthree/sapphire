@@ -6,7 +6,9 @@
     #include "./ast.h"
     #define YYDEBUG 1
 %}
-
+%union {
+    AST_node ast;
+}
 
 /*
 //   _______ ____  _  ________ _   _  _____ 
@@ -88,6 +90,10 @@
 //     |_|     |_|  |_|    |______|_____/ 
 */
 
+%type <ast> INTEGER_LITERAL;
+%type <ast> FLOAT_LITERAL;
+
+%type <ast> literal
 
 /*
 //   _____  _    _ _      ______  _____ 
@@ -99,8 +105,16 @@
 */                                           
 %%
 
+literal
+    : INTEGER_LITERAL {
+        printf("int");
+        $$ = $1;
+        
+    }
+    ;
 
 
+%%
 #include "lex.yy.c"
 
 int yyerror(char const *str) {

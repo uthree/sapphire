@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include "./ast.h"
 
     int yywrap() {
         return 0;
@@ -61,5 +62,20 @@
 "until"             return KW_UNTIL;
 "break"             return KW_BREAK;
 "return"            return KW_RETURN;
+
+[1-9][0-9]*         {
+    // Integer
+    printf("intl");
+    long int ltmp;
+    sscanf(yytext, "%ld", &ltmp);
+    AST_node tmpast = {
+        token_integer,
+        NULL,
+        ltmp
+    };
+    yylval.ast = tmpast;
+    
+    return INTEGER_LITERAL;
+};
 
 %%

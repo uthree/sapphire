@@ -1,0 +1,160 @@
+Terminals which are not used
+
+   PULS
+   MINUS
+   ASTERISK
+   SLASH
+   PERCENT
+   EQUAL
+   PERIOD
+   COMMA
+   COLON
+   SEMICOLON
+   LESSTHAN
+   GREATERTHAN
+   LEFT_PARENTHESIS
+   RIGHT_PARENTHESIS
+   LEFT_BLACKET
+   RIGHT_BLACKET
+   LEFT_CURLY_BLACKET
+   RIGHT_CURLY_BLACKET
+   EQUAL_EQUAL
+   LESSTHAN_EQUAL
+   GREATERTHAN_EQUAL
+   NOT_EQUAL
+   PULS_EQUAL
+   MINUS_EQUAL
+   ASTERISK_EQUAL
+   SLASH_EQUAL
+   NEWLINE
+   KW_AND
+   KW_OR
+   KW_NOT
+   KW_XOR
+   KW_NAND
+   LW_NOR
+   KW_IMPORT
+   KW_FROM
+   KW_AS
+   KW_CLASS
+   KW_FUNCTION
+   KW_CONSTRUCTOR
+   KW_GETTER
+   KW_SETTER
+   KW_IF
+   KW_ELSE
+   KW_END
+   KW_WHILE
+   KW_UNTIL
+   KW_BREAK
+   KW_RETURN
+   FLOAT_LITERAL
+   BOOL_LITERAL
+   NIL_LITERAL
+   STRING_LITERAL
+   IDENTIFIER
+
+
+Grammar
+
+    0 $accept: literal $end
+
+    1 literal: INTEGER_LITERAL
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+PULS (258)
+MINUS (259)
+ASTERISK (260)
+SLASH (261)
+PERCENT (262)
+EQUAL (263)
+PERIOD (264)
+COMMA (265)
+COLON (266)
+SEMICOLON (267)
+LESSTHAN (268)
+GREATERTHAN (269)
+LEFT_PARENTHESIS (270)
+RIGHT_PARENTHESIS (271)
+LEFT_BLACKET (272)
+RIGHT_BLACKET (273)
+LEFT_CURLY_BLACKET (274)
+RIGHT_CURLY_BLACKET (275)
+EQUAL_EQUAL (276)
+LESSTHAN_EQUAL (277)
+GREATERTHAN_EQUAL (278)
+NOT_EQUAL (279)
+PULS_EQUAL (280)
+MINUS_EQUAL (281)
+ASTERISK_EQUAL (282)
+SLASH_EQUAL (283)
+NEWLINE (284)
+KW_AND (285)
+KW_OR (286)
+KW_NOT (287)
+KW_XOR (288)
+KW_NAND (289)
+LW_NOR (290)
+KW_IMPORT (291)
+KW_FROM (292)
+KW_AS (293)
+KW_CLASS (294)
+KW_FUNCTION (295)
+KW_CONSTRUCTOR (296)
+KW_GETTER (297)
+KW_SETTER (298)
+KW_IF (299)
+KW_ELSE (300)
+KW_END (301)
+KW_WHILE (302)
+KW_UNTIL (303)
+KW_BREAK (304)
+KW_RETURN (305)
+INTEGER_LITERAL (306) 1
+FLOAT_LITERAL (307)
+BOOL_LITERAL (308)
+NIL_LITERAL (309)
+STRING_LITERAL (310)
+IDENTIFIER (311)
+
+
+Nonterminals, with rules where they appear
+
+$accept (57)
+    on left: 0
+literal (58)
+    on left: 1, on right: 0
+
+
+state 0
+
+    0 $accept: . literal $end
+
+    INTEGER_LITERAL  shift, and go to state 1
+
+    literal  go to state 2
+
+
+state 1
+
+    1 literal: INTEGER_LITERAL .
+
+    $default  reduce using rule 1 (literal)
+
+
+state 2
+
+    0 $accept: literal . $end
+
+    $end  shift, and go to state 3
+
+
+state 3
+
+    0 $accept: literal $end .
+
+    $default  accept

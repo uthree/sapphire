@@ -2,7 +2,7 @@
 
 // 構文の種類を識別するID
 enum AST_type {
-    token,
+    token_integer,
 };
 
 // 抽象構文木のノード。 自己参照構造体。
