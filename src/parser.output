@@ -48,10 +48,8 @@ Terminals which are not used
    KW_UNTIL
    KW_BREAK
    KW_RETURN
-   FLOAT_LITERAL
    BOOL_LITERAL
    NIL_LITERAL
-   STRING_LITERAL
    IDENTIFIER
 
 
@@ -60,6 +58,8 @@ Grammar
     0 $accept: literal $end
 
     1 literal: INTEGER_LITERAL
+    2        | FLOAT_LITERAL
+    3        | STRING_LITERAL
 
 
 Terminals, with rules where they appear
@@ -115,10 +115,10 @@ KW_UNTIL (303)
 KW_BREAK (304)
 KW_RETURN (305)
 INTEGER_LITERAL (306) 1
-FLOAT_LITERAL (307)
+FLOAT_LITERAL (307) 2
 BOOL_LITERAL (308)
 NIL_LITERAL (309)
-STRING_LITERAL (310)
+STRING_LITERAL (310) 3
 IDENTIFIER (311)
 
 
@@ -127,7 +127,7 @@ Nonterminals, with rules where they appear
 $accept (57)
     on left: 0
 literal (58)
-    on left: 1, on right: 0
+    on left: 1 2 3, on right: 0
 
 
 state 0
@@ -135,8 +135,10 @@ state 0
     0 $accept: . literal $end
 
     INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    STRING_LITERAL   shift, and go to state 3
 
-    literal  go to state 2
+    literal  go to state 4
 
 
 state 1
@@ -148,12 +150,26 @@ state 1
 
 state 2
 
-    0 $accept: literal . $end
+    2 literal: FLOAT_LITERAL .
 
-    $end  shift, and go to state 3
+    $default  reduce using rule 2 (literal)
 
 
 state 3
+
+    3 literal: STRING_LITERAL .
+
+    $default  reduce using rule 3 (literal)
+
+
+state 4
+
+    0 $accept: literal . $end
+
+    $end  shift, and go to state 5
+
+
+state 5
 
     0 $accept: literal $end .
 

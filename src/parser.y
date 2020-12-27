@@ -79,7 +79,7 @@
 %token NIL_LITERAL;
 %token STRING_LITERAL;
 
-%token <ptr> IDENTIFIER;
+%token <ast> IDENTIFIER;
 
 /*
 //   _________     _______  ______  _____ 
@@ -92,6 +92,7 @@
 
 %type <ast> INTEGER_LITERAL;
 %type <ast> FLOAT_LITERAL;
+%type <ast> STRING_LITERAL;
 
 %type <ast> literal
 
@@ -108,8 +109,15 @@
 literal
     : INTEGER_LITERAL {
         printf("int");
+        $$ = $1;    
+    }
+    | FLOAT_LITERAL {
+        printf("float");
         $$ = $1;
-        
+    }
+    | STRING_LITERAL {
+        printf("string");
+        $$ = $1;
     }
     ;
 

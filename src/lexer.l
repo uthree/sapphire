@@ -65,17 +65,73 @@
 
 [1-9][0-9]*         {
     // Integer
-    printf("intl");
-    long int ltmp;
-    sscanf(yytext, "%ld", &ltmp);
-    AST_node tmpast = {
+    long int *tmp;
+    sscanf(yytext, "%ld", &tmp);
+    AST_node ast = {
         token_integer,
         NULL,
-        ltmp
+        tmp
     };
-    yylval.ast = tmpast;
+    yylval.ast = ast;
     
     return INTEGER_LITERAL;
+};
+
+[0-9]\.[0-9]*         {
+    // Float
+    double *tmp;
+    sscanf(yytext, "%lf", &tmp);
+    AST_node ast = {
+        token_integer,
+        NULL,
+        tmp
+    };
+    yylval.ast = ast;
+    
+    return FLOAT_LITERAL;
+};
+
+(true|false)        return BOOL_LITERAL;
+"nil"               return NIL_LITERAL;
+
+\"(.*)\"            {
+    // 文字列(char[] ポインタ)
+    char *str;
+    str = (char *)malloc(sizeof(yytext));
+    str = yytext;
+    if(str == NULL) {
+        printf("FAILED ALLOCATE MEMORY\n");
+        exit(EXIT_FAILURE);
+    }
+
+    AST_node ast = {
+        token_integer,
+        NULL,
+        str
+    };
+    
+    yylval.ast = ast;
+    return STRING_LITERAL;
+};
+
+[A-Za-z][A-Za-z0-9]* {
+    // 変数名などの識別子(char[] ポインタ)
+    char *str;
+    str = (char *)malloc(sizeof(yytext));
+    str = yytext;
+    if(str == NULL) {
+        printf("FAILED ALLOCATE MEMORY\n");
+        exit(EXIT_FAILURE);
+    }
+
+    AST_node ast = {
+        token_integer,
+        NULL,
+        str
+    };
+    
+    yylval.ast = ast;
+    return IDENTIFIER;
 };
 
 %%
