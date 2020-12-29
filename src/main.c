@@ -1,8 +1,10 @@
 
 #include <stdio.h>
-#include "../src/parser.tab.c"
+#include "./ast.h"
 
 AST_node AST_ROOT;
+
+#include "../src/parser.tab.c"
 
 int main(int argc, char const *argv[]) {
     extern int yyparse(void);

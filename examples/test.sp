@@ -1,1 +1,2 @@
-a.bc.default
+a.bc.d=3
+ 

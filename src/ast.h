@@ -7,7 +7,8 @@ enum AST_type {
     token_string,
     token_identfier,
     
-    op_scope, // <scope> <identfier|scope> null....
+    op_getter, // <object> <getter_name>
+    op_setter, // <object> <setter_name> <value>
 };
 
 // 抽象構文木のノード。 自己参照構造体。

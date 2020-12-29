@@ -5,7 +5,6 @@ Terminals which are not used
    ASTERISK
    SLASH
    PERCENT
-   EQUAL
    COMMA
    COLON
    SEMICOLON
@@ -50,6 +49,9 @@ Terminals which are not used
    NIL_LITERAL
 
 
+State 15 conflicts: 1 shift/reduce
+
+
 Grammar
 
     0 $accept: program $end
@@ -57,14 +59,17 @@ Grammar
     1 program: expression NEWLINE
 
     2 expression: literal
-    3           | scope
+    3           | getter
+    4           | setter
 
-    4 literal: INTEGER_LITERAL
-    5        | FLOAT_LITERAL
-    6        | STRING_LITERAL
+    5 setter: expression PERIOD IDENTIFIER EQUAL expression
 
-    7 scope: IDENTIFIER
-    8      | scope PERIOD IDENTIFIER
+    6 literal: INTEGER_LITERAL
+    7        | FLOAT_LITERAL
+    8        | STRING_LITERAL
+
+    9 getter: IDENTIFIER
+   10       | expression PERIOD IDENTIFIER
 
 
 Terminals, with rules where they appear
@@ -76,8 +81,8 @@ MINUS (259)
 ASTERISK (260)
 SLASH (261)
 PERCENT (262)
-EQUAL (263)
-PERIOD (264) 8
+EQUAL (263) 5
+PERIOD (264) 5 10
 COMMA (265)
 COLON (266)
 SEMICOLON (267)
@@ -119,12 +124,12 @@ KW_WHILE (302)
 KW_UNTIL (303)
 KW_BREAK (304)
 KW_RETURN (305)
-INTEGER_LITERAL (306) 4
-FLOAT_LITERAL (307) 5
+INTEGER_LITERAL (306) 6
+FLOAT_LITERAL (307) 7
 BOOL_LITERAL (308)
 NIL_LITERAL (309)
-STRING_LITERAL (310) 6
-IDENTIFIER (311) 7 8
+STRING_LITERAL (310) 8
+IDENTIFIER (311) 5 9 10
 
 
 Nonterminals, with rules where they appear
@@ -134,11 +139,13 @@ $accept (57)
 program (58)
     on left: 1, on right: 0
 expression (59)
-    on left: 2 3, on right: 1
-literal (60)
-    on left: 4 5 6, on right: 2
-scope (61)
-    on left: 7 8, on right: 3 8
+    on left: 2 3 4, on right: 1 5 10
+setter (60)
+    on left: 5, on right: 4
+literal (61)
+    on left: 6 7 8, on right: 2
+getter (62)
+    on left: 9 10, on right: 3
 
 
 state 0
@@ -152,92 +159,131 @@ state 0
 
     program     go to state 5
     expression  go to state 6
-    literal     go to state 7
-    scope       go to state 8
+    setter      go to state 7
+    literal     go to state 8
+    getter      go to state 9
 
 
 state 1
 
-    4 literal: INTEGER_LITERAL .
-
-    $default  reduce using rule 4 (literal)
-
-
-state 2
-
-    5 literal: FLOAT_LITERAL .
-
-    $default  reduce using rule 5 (literal)
-
-
-state 3
-
-    6 literal: STRING_LITERAL .
+    6 literal: INTEGER_LITERAL .
 
     $default  reduce using rule 6 (literal)
 
 
+state 2
+
+    7 literal: FLOAT_LITERAL .
+
+    $default  reduce using rule 7 (literal)
+
+
+state 3
+
+    8 literal: STRING_LITERAL .
+
+    $default  reduce using rule 8 (literal)
+
+
 state 4
 
-    7 scope: IDENTIFIER .
+    9 getter: IDENTIFIER .
 
-    $default  reduce using rule 7 (scope)
+    $default  reduce using rule 9 (getter)
 
 
 state 5
 
     0 $accept: program . $end
 
-    $end  shift, and go to state 9
+    $end  shift, and go to state 10
 
 
 state 6
 
     1 program: expression . NEWLINE
+    5 setter: expression . PERIOD IDENTIFIER EQUAL expression
+   10 getter: expression . PERIOD IDENTIFIER
 
-    NEWLINE  shift, and go to state 10
+    PERIOD   shift, and go to state 11
+    NEWLINE  shift, and go to state 12
 
 
 state 7
+
+    4 expression: setter .
+
+    $default  reduce using rule 4 (expression)
+
+
+state 8
 
     2 expression: literal .
 
     $default  reduce using rule 2 (expression)
 
 
-state 8
+state 9
 
-    3 expression: scope .
-    8 scope: scope . PERIOD IDENTIFIER
-
-    PERIOD  shift, and go to state 11
+    3 expression: getter .
 
     $default  reduce using rule 3 (expression)
 
 
-state 9
+state 10
 
     0 $accept: program $end .
 
     $default  accept
 
 
-state 10
+state 11
+
+    5 setter: expression PERIOD . IDENTIFIER EQUAL expression
+   10 getter: expression PERIOD . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 13
+
+
+state 12
 
     1 program: expression NEWLINE .
 
     $default  reduce using rule 1 (program)
 
 
-state 11
+state 13
 
-    8 scope: scope PERIOD . IDENTIFIER
+    5 setter: expression PERIOD IDENTIFIER . EQUAL expression
+   10 getter: expression PERIOD IDENTIFIER .
 
-    IDENTIFIER  shift, and go to state 12
+    EQUAL  shift, and go to state 14
+
+    $default  reduce using rule 10 (getter)
 
 
-state 12
+state 14
 
-    8 scope: scope PERIOD IDENTIFIER .
+    5 setter: expression PERIOD IDENTIFIER EQUAL . expression
 
-    $default  reduce using rule 8 (scope)
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    STRING_LITERAL   shift, and go to state 3
+    IDENTIFIER       shift, and go to state 4
+
+    expression  go to state 15
+    setter      go to state 7
+    literal     go to state 8
+    getter      go to state 9
+
+
+state 15
+
+    5 setter: expression . PERIOD IDENTIFIER EQUAL expression
+    5       | expression PERIOD IDENTIFIER EQUAL expression .
+   10 getter: expression . PERIOD IDENTIFIER
+
+    PERIOD  shift, and go to state 11
+
+    PERIOD    [reduce using rule 5 (setter)]
+    $default  reduce using rule 5 (setter)

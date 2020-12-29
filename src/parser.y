@@ -91,10 +91,12 @@
 
 
 %type <ast> literal;
-%type <ast> scope;
-
 %type <ast> program;
-%type <ast> expression 
+%type <ast> expression;
+
+%type <ast> setter;
+%type <ast> getter;
+
 
 /*
 //   _____  _    _ _      ______  _____ 
@@ -113,8 +115,26 @@ program
 
 expression
     : literal
-    | scope
+    | getter
+    | setter
     ;
+
+setter
+    : expression PERIOD IDENTIFIER EQUAL expression
+    {
+        printf("setter\n");
+        AST_node *list = {
+            &$1,
+            $3,
+            &$5
+        };
+        AST_node ast = {
+            op_setter,
+            list,
+            NULL
+        };
+        $$ = ast;
+    }
 
 literal
     : INTEGER_LITERAL {
@@ -131,19 +151,19 @@ literal
     }
     ;
 
-scope
+getter
     : IDENTIFIER {
-        printf("single_dentfier\n");
+        printf("single_getter\n");
         $$ = $1;
     }
-    | scope PERIOD IDENTIFIER {
-        printf("scope_op\n");
+    | expression PERIOD IDENTIFIER {
+        printf("getter\n");
         AST_node *list = {
             &$1,
             $3
         };
         AST_node ast = {
-            op_scope,
+            op_getter,
             list,
             NULL
         };
