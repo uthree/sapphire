@@ -13,5 +13,6 @@ int main(int argc, char const *argv[]) {
         fclose(yyin);
         exit(1);
     }
-    printf("end");
+    fclose(yyin);
+    printf("\n\nPROGRAM END\n");
 }

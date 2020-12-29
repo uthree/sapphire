@@ -73,12 +73,11 @@
 %token KW_BREAK
 %token KW_RETURN
 
-%token INTEGER_LITERAL
-%token FLOAT_LITERAL;
-%token BOOL_LITERAL;
-%token NIL_LITERAL;
-%token STRING_LITERAL;
-
+%token <ast> INTEGER_LITERAL
+%token <ast> FLOAT_LITERAL;
+%token <ast> BOOL_LITERAL;
+%token <ast> NIL_LITERAL;
+%token <ast> STRING_LITERAL;
 %token <ast> IDENTIFIER;
 
 /*
@@ -90,11 +89,12 @@
 //     |_|     |_|  |_|    |______|_____/ 
 */
 
-%type <ast> INTEGER_LITERAL;
-%type <ast> FLOAT_LITERAL;
-%type <ast> STRING_LITERAL;
 
-%type <ast> literal
+%type <ast> literal;
+%type <ast> scope;
+
+%type <ast> program;
+%type <ast> expression 
 
 /*
 //   _____  _    _ _      ______  _____ 
@@ -106,10 +106,20 @@
 */                                           
 %%
 
+program
+    : expression NEWLINE{
+        $$ = $1;
+    };
+
+expression
+    : literal
+    | scope
+    ;
+
 literal
     : INTEGER_LITERAL {
         printf("int");
-        $$ = $1;    
+        $$ = $1;   
     }
     | FLOAT_LITERAL {
         printf("float");
@@ -121,12 +131,34 @@ literal
     }
     ;
 
+scope
+    : IDENTIFIER {
+        printf("single_dentfier\n");
+        $$ = $1;
+    }
+    | scope PERIOD IDENTIFIER {
+        printf("scope_op\n");
+        AST_node *list = {
+            &$1,
+            $3
+        };
+        AST_node ast = {
+            op_scope,
+            list,
+            NULL
+        };
+        $$ = ast;
+    }
+    ;
+
+
+
 
 %%
 #include "lex.yy.c"
 
 int yyerror(char const *str) {
     extern char *yytext;
-    fprintf(stderr, "paraser error.");
+    fprintf(stderr, "parser error near %s\n", yytext);
     return 0;
 }

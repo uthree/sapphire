@@ -6,7 +6,6 @@ Terminals which are not used
    SLASH
    PERCENT
    EQUAL
-   PERIOD
    COMMA
    COLON
    SEMICOLON
@@ -26,7 +25,6 @@ Terminals which are not used
    MINUS_EQUAL
    ASTERISK_EQUAL
    SLASH_EQUAL
-   NEWLINE
    KW_AND
    KW_OR
    KW_NOT
@@ -50,16 +48,23 @@ Terminals which are not used
    KW_RETURN
    BOOL_LITERAL
    NIL_LITERAL
-   IDENTIFIER
 
 
 Grammar
 
-    0 $accept: literal $end
+    0 $accept: program $end
 
-    1 literal: INTEGER_LITERAL
-    2        | FLOAT_LITERAL
-    3        | STRING_LITERAL
+    1 program: expression NEWLINE
+
+    2 expression: literal
+    3           | scope
+
+    4 literal: INTEGER_LITERAL
+    5        | FLOAT_LITERAL
+    6        | STRING_LITERAL
+
+    7 scope: IDENTIFIER
+    8      | scope PERIOD IDENTIFIER
 
 
 Terminals, with rules where they appear
@@ -72,7 +77,7 @@ ASTERISK (260)
 SLASH (261)
 PERCENT (262)
 EQUAL (263)
-PERIOD (264)
+PERIOD (264) 8
 COMMA (265)
 COLON (266)
 SEMICOLON (267)
@@ -92,7 +97,7 @@ PULS_EQUAL (280)
 MINUS_EQUAL (281)
 ASTERISK_EQUAL (282)
 SLASH_EQUAL (283)
-NEWLINE (284)
+NEWLINE (284) 1
 KW_AND (285)
 KW_OR (286)
 KW_NOT (287)
@@ -114,63 +119,125 @@ KW_WHILE (302)
 KW_UNTIL (303)
 KW_BREAK (304)
 KW_RETURN (305)
-INTEGER_LITERAL (306) 1
-FLOAT_LITERAL (307) 2
+INTEGER_LITERAL (306) 4
+FLOAT_LITERAL (307) 5
 BOOL_LITERAL (308)
 NIL_LITERAL (309)
-STRING_LITERAL (310) 3
-IDENTIFIER (311)
+STRING_LITERAL (310) 6
+IDENTIFIER (311) 7 8
 
 
 Nonterminals, with rules where they appear
 
 $accept (57)
     on left: 0
-literal (58)
-    on left: 1 2 3, on right: 0
+program (58)
+    on left: 1, on right: 0
+expression (59)
+    on left: 2 3, on right: 1
+literal (60)
+    on left: 4 5 6, on right: 2
+scope (61)
+    on left: 7 8, on right: 3 8
 
 
 state 0
 
-    0 $accept: . literal $end
+    0 $accept: . program $end
 
     INTEGER_LITERAL  shift, and go to state 1
     FLOAT_LITERAL    shift, and go to state 2
     STRING_LITERAL   shift, and go to state 3
+    IDENTIFIER       shift, and go to state 4
 
-    literal  go to state 4
+    program     go to state 5
+    expression  go to state 6
+    literal     go to state 7
+    scope       go to state 8
 
 
 state 1
 
-    1 literal: INTEGER_LITERAL .
+    4 literal: INTEGER_LITERAL .
 
-    $default  reduce using rule 1 (literal)
+    $default  reduce using rule 4 (literal)
 
 
 state 2
 
-    2 literal: FLOAT_LITERAL .
+    5 literal: FLOAT_LITERAL .
 
-    $default  reduce using rule 2 (literal)
+    $default  reduce using rule 5 (literal)
 
 
 state 3
 
-    3 literal: STRING_LITERAL .
+    6 literal: STRING_LITERAL .
 
-    $default  reduce using rule 3 (literal)
+    $default  reduce using rule 6 (literal)
 
 
 state 4
 
-    0 $accept: literal . $end
+    7 scope: IDENTIFIER .
 
-    $end  shift, and go to state 5
+    $default  reduce using rule 7 (scope)
 
 
 state 5
 
-    0 $accept: literal $end .
+    0 $accept: program . $end
+
+    $end  shift, and go to state 9
+
+
+state 6
+
+    1 program: expression . NEWLINE
+
+    NEWLINE  shift, and go to state 10
+
+
+state 7
+
+    2 expression: literal .
+
+    $default  reduce using rule 2 (expression)
+
+
+state 8
+
+    3 expression: scope .
+    8 scope: scope . PERIOD IDENTIFIER
+
+    PERIOD  shift, and go to state 11
+
+    $default  reduce using rule 3 (expression)
+
+
+state 9
+
+    0 $accept: program $end .
 
     $default  accept
+
+
+state 10
+
+    1 program: expression NEWLINE .
+
+    $default  reduce using rule 1 (program)
+
+
+state 11
+
+    8 scope: scope PERIOD . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 12
+
+
+state 12
+
+    8 scope: scope PERIOD IDENTIFIER .
+
+    $default  reduce using rule 8 (scope)

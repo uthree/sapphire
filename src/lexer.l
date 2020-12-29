@@ -4,7 +4,8 @@
     #include "./ast.h"
 
     int yywrap() {
-        return 0;
+        printf("WRAP");
+        return 1;
     }
 %}
 %%
@@ -82,7 +83,7 @@
     double *tmp;
     sscanf(yytext, "%lf", &tmp);
     AST_node ast = {
-        token_integer,
+        token_float,
         NULL,
         tmp
     };
@@ -105,7 +106,7 @@
     }
 
     AST_node ast = {
-        token_integer,
+        token_string,
         NULL,
         str
     };
@@ -119,17 +120,17 @@
     char *str;
     str = (char *)malloc(sizeof(yytext));
     str = yytext;
+    printf(str);
     if(str == NULL) {
         printf("FAILED ALLOCATE MEMORY\n");
         exit(EXIT_FAILURE);
     }
 
     AST_node ast = {
-        token_integer,
+        token_identfier,
         NULL,
         str
     };
-    
     yylval.ast = ast;
     return IDENTIFIER;
 };
