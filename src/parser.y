@@ -108,7 +108,7 @@
 
 program
     : expression NEWLINE{
-        $$ = $1;
+        AST_ROOT = $1;
     };
 
 expression

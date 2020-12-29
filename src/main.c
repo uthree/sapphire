@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "../src/parser.tab.c"
 
+AST_node AST_ROOT;
+
 int main(int argc, char const *argv[]) {
     extern int yyparse(void);
     extern FILE *yyin;
