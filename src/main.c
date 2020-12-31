@@ -1,6 +1,5 @@
 
 #include <stdio.h>
-#include "./ast.h"
 
 AST_node AST_ROOT;
 

@@ -8,3 +8,6 @@ self made programming language "Sapphire"
 
 # environment
 - Mac OS Catalina 10.15.7
+
+# todo
+- write ROOT NAMESPACE.
