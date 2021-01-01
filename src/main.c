@@ -1,9 +1,11 @@
 
 #include <stdio.h>
-
+#include "ast.h"
 AST_node AST_ROOT;
 
-#include "../src/parser.tab.c"
+#include "parser.tab.c"
+#include "object.c"
+#include "identifier.c"
 
 int main(int argc, char const *argv[]) {
     extern int yyparse(void);

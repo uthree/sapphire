@@ -19,7 +19,7 @@ enum ObjectType {
     double_float, // double 
     string, // char[]
     namespace, // 名前空間
-    class, // クラス￥
+    class, // クラス
     other_obj, // その他のユーザ定義オブジェクト。
 };
 
@@ -34,6 +34,6 @@ typedef struct {
 } Object;
 
 // 名前空間にオブジェクトを追加する。
-void NS_add_object(NameSpace *naespace,int symbol_value,Object *object) {
+void NS_add_object(NameSpace *naespace,char* name[],Object *object) {
     
 }
