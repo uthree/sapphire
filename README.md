@@ -16,4 +16,3 @@ self made programming language "Sapphire"
 - write ROOT NAMESPACE.
 - write JIT compiler.
 - write runtime.
-- rewrite identifier.c with `realloc()` function.
