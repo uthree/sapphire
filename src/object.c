@@ -34,6 +34,6 @@ typedef struct {
 } Object;
 
 // 名前空間にオブジェクトを追加する。
-void NS_add_object(NameSpace *naespace,char* name[],Object *object) {
-    
+void add_object_to_namespace(NameSpace *naespace,char* name[],Object *object) {
+
 }
