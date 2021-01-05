@@ -22,7 +22,7 @@ struct {
 // リスト初期化
 void initialize_identifier_list() {
     __identifier_list__.size = IDENTIFIER_ALLOC_SIZE;
-    __identifier_list__.end = 0;
+    __identifier_list__.end = -1;
     __identifier_list__.names = (char**)malloc(__identifier_list__.size * sizeof(char*));
     __identifier_list__.values = (int*)malloc(__identifier_list__.size * sizeof(int));
 }
@@ -42,21 +42,22 @@ void add_identifier(char* name) {
 
 // 識別子が存在するかどうかチェックする。
 bool check_identifier_exist(char* name) {
-    if (__identifier_list__.size == 0) return false;
+    if (__identifier_list__.end == 0) return false;
     for (int i = 0; i <= __identifier_list__.end; i++)
     {
-        if(strcmp(__identifier_list__.names[i], name)) {
+        if(strcmp(__identifier_list__.names[i], name) == 0) {
             return true;
         }
     }
     return false;   
+    
 }
 
 // 識別子の番号を取得する。
 int get_identifier_number(char* name) {
     for (int i = 0; i <= __identifier_list__.end; i++)
     {
-        if(strcmp(__identifier_list__.names[i], name)) {
+        if(strcmp(__identifier_list__.names[i], name) == 0) {
             return __identifier_list__.values[i];
         }
     }
