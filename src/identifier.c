@@ -3,6 +3,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <string.h>
+# include <stdlib.h>
 
 # pragma once
 
@@ -41,6 +42,7 @@ void add_identifier(char* name) {
 
 // 識別子が存在するかどうかチェックする。
 bool check_identifier_exist(char* name) {
+    if (__identifier_list__.size == 0) return false;
     for (int i = 0; i <= __identifier_list__.end; i++)
     {
         if(strcmp(__identifier_list__.names[i], name)) {
