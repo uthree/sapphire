@@ -5,9 +5,17 @@ int main(int argc, char const *argv[])
 {
     initialize_identifier_list();
     add_identifier("a");
+    printf("%d\n", __identifier_list__.end);
     add_identifier("b");
-    add_identifier("c1");
-    add_identifier("d2");
-    printf("%d", __identifier_list__.end);
+    printf("%d\n", __identifier_list__.end);
+    add_identifier("c");
+    printf("%d\n", __identifier_list__.end);
+    printf("SIZ %d\n", sizeof(__identifier_list__.values));
+    add_identifier("d");
+    printf("%d\n", __identifier_list__.end);
+    printf("SIZ %d\n", sizeof(__identifier_list__.values));
+    add_identifier("e");
+    printf("%d\n", __identifier_list__.end);
+    printf("SIZ %d\n", sizeof(__identifier_list__.values));
     return 0;
 }
