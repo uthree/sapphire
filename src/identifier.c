@@ -23,6 +23,7 @@ struct {
 void initialize_identifier_list() {
     __identifier_list__.size = IDENTIFIER_ALLOC_SIZE;
     __identifier_list__.end = 0;
+    // todo: Exit program if failed memory allocation.
     __identifier_list__.names = (char**)malloc(__identifier_list__.size * sizeof(char*));
     __identifier_list__.values = (int*)malloc(__identifier_list__.size * sizeof(int));
 }
@@ -33,6 +34,7 @@ void add_identifier(char* name) {
     if (__identifier_list__.end+1 >= __identifier_list__.size) { //リストが一杯になったら新規メモリを確保する。
         printf("reallocate");
         __identifier_list__.size += IDENTIFIER_ALLOC_SIZE;
+        // todo: Exit program if failed memory allocation.
         __identifier_list__.names = (char**)realloc(__identifier_list__.names, __identifier_list__.size * sizeof(char*));
         __identifier_list__.values = (int*)realloc(__identifier_list__.values, __identifier_list__.size * sizeof(int));
     }
