@@ -51,6 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Generated files
 src/lex.yy.c
 src/parser.tab.c
 src/parser.tab.h
