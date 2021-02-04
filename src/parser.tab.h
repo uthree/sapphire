@@ -112,8 +112,8 @@ union YYSTYPE
 {
 #line 15 "parser.y"
 
-    AST ast;
-    
+    aststruct astt;
+
 
 #line 119 "parser.tab.h"
 

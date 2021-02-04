@@ -14,7 +14,7 @@
 
 %union {
     AST ast;
-    
+
 }
 
 /*

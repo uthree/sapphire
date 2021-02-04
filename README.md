@@ -16,3 +16,4 @@ self made programming language "Sapphire"
 - Mac OS Catalina 10.15.7
 
 # todo
+- ASTをクラスで作るとバグるので、structに換装する。
