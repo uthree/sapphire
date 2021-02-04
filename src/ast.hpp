@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "../src/ast_type.hpp"
+
 class AST {
 public:
     AST(); // コンストラクタ

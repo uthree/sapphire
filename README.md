@@ -2,7 +2,7 @@
 self made programming language "Sapphire"
 
 ## メモ
-このリポジトリでは、lex.yy.cやparser.tab.cなどのc言語のファイルが存在しますが、c++のソースだファイルとしてインクルードされます。
+このリポジトリでは、`lex.yy.c`や`parser.tab.c`などのc言語のファイルが存在しますが、c++のソースだファイルとしてインクルードされます。
 
 # requirements
 - flex
