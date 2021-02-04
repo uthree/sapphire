@@ -9,7 +9,7 @@ class AST {
 public:
     AST(std::string content, ASTType type, std::vector<AST*> children, bool token); // コンストラクタ
     ~AST(); // デストラクタ
-    AST(AST& other); // コピーコンストラクタ。
+    //AST(const AST& other); // コピーコンストラクタ。
     bool token; // トークンであるか
     std::string content; // 内容
     std::vector<AST*> children; //子要素
