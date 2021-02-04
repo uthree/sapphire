@@ -1,289 +1,149 @@
-Terminals which are not used
+Terminals unused in grammar
 
-   PULS
-   MINUS
-   ASTERISK
-   SLASH
-   PERCENT
-   COMMA
-   COLON
-   SEMICOLON
-   LESSTHAN
-   GREATERTHAN
-   LEFT_PARENTHESIS
-   RIGHT_PARENTHESIS
-   LEFT_BLACKET
-   RIGHT_BLACKET
-   LEFT_CURLY_BLACKET
-   RIGHT_CURLY_BLACKET
-   EQUAL_EQUAL
-   LESSTHAN_EQUAL
-   GREATERTHAN_EQUAL
-   NOT_EQUAL
-   PULS_EQUAL
-   MINUS_EQUAL
-   ASTERISK_EQUAL
-   SLASH_EQUAL
-   KW_AND
-   KW_OR
-   KW_NOT
-   KW_XOR
-   KW_NAND
-   LW_NOR
-   KW_IMPORT
-   KW_FROM
-   KW_AS
-   KW_CLASS
-   KW_FUNCTION
-   KW_CONSTRUCTOR
-   KW_GETTER
-   KW_SETTER
-   KW_IF
-   KW_ELSE
-   KW_END
-   KW_WHILE
-   KW_UNTIL
-   KW_BREAK
-   KW_RETURN
-   BOOL_LITERAL
-   NIL_LITERAL
-
-
-State 15 conflicts: 1 shift/reduce
+    MINUS
+    ASTERISK
+    SLASH
+    PERCENT
+    EQUAL
+    PERIOD
+    COMMA
+    COLON
+    SEMICOLON
+    LESSTHAN
+    GREATERTHAN
+    LEFT_PARENTHESIS
+    RIGHT_PARENTHESIS
+    LEFT_BLACKET
+    RIGHT_BLACKET
+    LEFT_CURLY_BLACKET
+    RIGHT_CURLY_BLACKET
+    EQUAL_EQUAL
+    LESSTHAN_EQUAL
+    GREATERTHAN_EQUAL
+    NOT_EQUAL
+    PULS_EQUAL
+    MINUS_EQUAL
+    ASTERISK_EQUAL
+    SLASH_EQUAL
+    NEWLINE
+    KW_AND
+    KW_OR
+    KW_NOT
+    KW_XOR
+    KW_NAND
+    LW_NOR
+    KW_IMPORT
+    KW_FROM
+    KW_AS
+    KW_CLASS
+    KW_FUNCTION
+    KW_CONSTRUCTOR
+    KW_GETTER
+    KW_SETTER
+    KW_IF
+    KW_ELSE
+    KW_END
+    KW_WHILE
+    KW_UNTIL
+    KW_BREAK
+    KW_RETURN
 
 
 Grammar
 
     0 $accept: program $end
 
-    1 program: expression NEWLINE
-
-    2 expression: literal
-    3           | getter
-    4           | setter
-
-    5 setter: expression PERIOD IDENTIFIER EQUAL expression
-
-    6 literal: INTEGER_LITERAL
-    7        | FLOAT_LITERAL
-    8        | STRING_LITERAL
-
-    9 getter: IDENTIFIER
-   10       | expression PERIOD IDENTIFIER
+    1 program: PULS
 
 
 Terminals, with rules where they appear
 
-$end (0) 0
-error (256)
-PULS (258)
-MINUS (259)
-ASTERISK (260)
-SLASH (261)
-PERCENT (262)
-EQUAL (263) 5
-PERIOD (264) 5 10
-COMMA (265)
-COLON (266)
-SEMICOLON (267)
-LESSTHAN (268)
-GREATERTHAN (269)
-LEFT_PARENTHESIS (270)
-RIGHT_PARENTHESIS (271)
-LEFT_BLACKET (272)
-RIGHT_BLACKET (273)
-LEFT_CURLY_BLACKET (274)
-RIGHT_CURLY_BLACKET (275)
-EQUAL_EQUAL (276)
-LESSTHAN_EQUAL (277)
-GREATERTHAN_EQUAL (278)
-NOT_EQUAL (279)
-PULS_EQUAL (280)
-MINUS_EQUAL (281)
-ASTERISK_EQUAL (282)
-SLASH_EQUAL (283)
-NEWLINE (284) 1
-KW_AND (285)
-KW_OR (286)
-KW_NOT (287)
-KW_XOR (288)
-KW_NAND (289)
-LW_NOR (290)
-KW_IMPORT (291)
-KW_FROM (292)
-KW_AS (293)
-KW_CLASS (294)
-KW_FUNCTION (295)
-KW_CONSTRUCTOR (296)
-KW_GETTER (297)
-KW_SETTER (298)
-KW_IF (299)
-KW_ELSE (300)
-KW_END (301)
-KW_WHILE (302)
-KW_UNTIL (303)
-KW_BREAK (304)
-KW_RETURN (305)
-INTEGER_LITERAL (306) 6
-FLOAT_LITERAL (307) 7
-BOOL_LITERAL (308)
-NIL_LITERAL (309)
-STRING_LITERAL (310) 8
-IDENTIFIER (311) 5 9 10
+    $end (0) 0
+    error (256)
+    PULS (258) 1
+    MINUS (259)
+    ASTERISK (260)
+    SLASH (261)
+    PERCENT (262)
+    EQUAL (263)
+    PERIOD (264)
+    COMMA (265)
+    COLON (266)
+    SEMICOLON (267)
+    LESSTHAN (268)
+    GREATERTHAN (269)
+    LEFT_PARENTHESIS (270)
+    RIGHT_PARENTHESIS (271)
+    LEFT_BLACKET (272)
+    RIGHT_BLACKET (273)
+    LEFT_CURLY_BLACKET (274)
+    RIGHT_CURLY_BLACKET (275)
+    EQUAL_EQUAL (276)
+    LESSTHAN_EQUAL (277)
+    GREATERTHAN_EQUAL (278)
+    NOT_EQUAL (279)
+    PULS_EQUAL (280)
+    MINUS_EQUAL (281)
+    ASTERISK_EQUAL (282)
+    SLASH_EQUAL (283)
+    NEWLINE (284)
+    KW_AND (285)
+    KW_OR (286)
+    KW_NOT (287)
+    KW_XOR (288)
+    KW_NAND (289)
+    LW_NOR (290)
+    KW_IMPORT (291)
+    KW_FROM (292)
+    KW_AS (293)
+    KW_CLASS (294)
+    KW_FUNCTION (295)
+    KW_CONSTRUCTOR (296)
+    KW_GETTER (297)
+    KW_SETTER (298)
+    KW_IF (299)
+    KW_ELSE (300)
+    KW_END (301)
+    KW_WHILE (302)
+    KW_UNTIL (303)
+    KW_BREAK (304)
+    KW_RETURN (305)
 
 
 Nonterminals, with rules where they appear
 
-$accept (57)
-    on left: 0
-program (58)
-    on left: 1, on right: 0
-expression (59)
-    on left: 2 3 4, on right: 1 5 10
-setter (60)
-    on left: 5, on right: 4
-literal (61)
-    on left: 6 7 8, on right: 2
-getter (62)
-    on left: 9 10, on right: 3
+    $accept (51)
+        on left: 0
+    program (52)
+        on left: 1
+        on right: 0
 
 
-state 0
+State 0
 
-    0 $accept: . program $end
+    0 $accept: • program $end
 
-    INTEGER_LITERAL  shift, and go to state 1
-    FLOAT_LITERAL    shift, and go to state 2
-    STRING_LITERAL   shift, and go to state 3
-    IDENTIFIER       shift, and go to state 4
+    PULS  shift, and go to state 1
 
-    program     go to state 5
-    expression  go to state 6
-    setter      go to state 7
-    literal     go to state 8
-    getter      go to state 9
+    program  go to state 2
 
 
-state 1
+State 1
 
-    6 literal: INTEGER_LITERAL .
-
-    $default  reduce using rule 6 (literal)
-
-
-state 2
-
-    7 literal: FLOAT_LITERAL .
-
-    $default  reduce using rule 7 (literal)
-
-
-state 3
-
-    8 literal: STRING_LITERAL .
-
-    $default  reduce using rule 8 (literal)
-
-
-state 4
-
-    9 getter: IDENTIFIER .
-
-    $default  reduce using rule 9 (getter)
-
-
-state 5
-
-    0 $accept: program . $end
-
-    $end  shift, and go to state 10
-
-
-state 6
-
-    1 program: expression . NEWLINE
-    5 setter: expression . PERIOD IDENTIFIER EQUAL expression
-   10 getter: expression . PERIOD IDENTIFIER
-
-    PERIOD   shift, and go to state 11
-    NEWLINE  shift, and go to state 12
-
-
-state 7
-
-    4 expression: setter .
-
-    $default  reduce using rule 4 (expression)
-
-
-state 8
-
-    2 expression: literal .
-
-    $default  reduce using rule 2 (expression)
-
-
-state 9
-
-    3 expression: getter .
-
-    $default  reduce using rule 3 (expression)
-
-
-state 10
-
-    0 $accept: program $end .
-
-    $default  accept
-
-
-state 11
-
-    5 setter: expression PERIOD . IDENTIFIER EQUAL expression
-   10 getter: expression PERIOD . IDENTIFIER
-
-    IDENTIFIER  shift, and go to state 13
-
-
-state 12
-
-    1 program: expression NEWLINE .
+    1 program: PULS •
 
     $default  reduce using rule 1 (program)
 
 
-state 13
+State 2
 
-    5 setter: expression PERIOD IDENTIFIER . EQUAL expression
-   10 getter: expression PERIOD IDENTIFIER .
+    0 $accept: program • $end
 
-    EQUAL  shift, and go to state 14
-
-    $default  reduce using rule 10 (getter)
+    $end  shift, and go to state 3
 
 
-state 14
+State 3
 
-    5 setter: expression PERIOD IDENTIFIER EQUAL . expression
+    0 $accept: program $end •
 
-    INTEGER_LITERAL  shift, and go to state 1
-    FLOAT_LITERAL    shift, and go to state 2
-    STRING_LITERAL   shift, and go to state 3
-    IDENTIFIER       shift, and go to state 4
-
-    expression  go to state 15
-    setter      go to state 7
-    literal     go to state 8
-    getter      go to state 9
-
-
-state 15
-
-    5 setter: expression . PERIOD IDENTIFIER EQUAL expression
-    5       | expression PERIOD IDENTIFIER EQUAL expression .
-   10 getter: expression . PERIOD IDENTIFIER
-
-    PERIOD  shift, and go to state 11
-
-    PERIOD    [reduce using rule 5 (setter)]
-    $default  reduce using rule 5 (setter)
+    $default  accept

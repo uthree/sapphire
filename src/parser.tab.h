@@ -1,14 +1,14 @@
-/* A Bison parser, made by GNU Bison 2.3.  */
+/* A Bison parser, made by GNU Bison 3.7.5.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
+/* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,9 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -33,140 +31,100 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Tokens.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
+#ifndef YY_YY_PARSER_TAB_H_INCLUDED
+# define YY_YY_PARSER_TAB_H_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     PULS = 258,
-     MINUS = 259,
-     ASTERISK = 260,
-     SLASH = 261,
-     PERCENT = 262,
-     EQUAL = 263,
-     PERIOD = 264,
-     COMMA = 265,
-     COLON = 266,
-     SEMICOLON = 267,
-     LESSTHAN = 268,
-     GREATERTHAN = 269,
-     LEFT_PARENTHESIS = 270,
-     RIGHT_PARENTHESIS = 271,
-     LEFT_BLACKET = 272,
-     RIGHT_BLACKET = 273,
-     LEFT_CURLY_BLACKET = 274,
-     RIGHT_CURLY_BLACKET = 275,
-     EQUAL_EQUAL = 276,
-     LESSTHAN_EQUAL = 277,
-     GREATERTHAN_EQUAL = 278,
-     NOT_EQUAL = 279,
-     PULS_EQUAL = 280,
-     MINUS_EQUAL = 281,
-     ASTERISK_EQUAL = 282,
-     SLASH_EQUAL = 283,
-     NEWLINE = 284,
-     KW_AND = 285,
-     KW_OR = 286,
-     KW_NOT = 287,
-     KW_XOR = 288,
-     KW_NAND = 289,
-     LW_NOR = 290,
-     KW_IMPORT = 291,
-     KW_FROM = 292,
-     KW_AS = 293,
-     KW_CLASS = 294,
-     KW_FUNCTION = 295,
-     KW_CONSTRUCTOR = 296,
-     KW_GETTER = 297,
-     KW_SETTER = 298,
-     KW_IF = 299,
-     KW_ELSE = 300,
-     KW_END = 301,
-     KW_WHILE = 302,
-     KW_UNTIL = 303,
-     KW_BREAK = 304,
-     KW_RETURN = 305,
-     INTEGER_LITERAL = 306,
-     FLOAT_LITERAL = 307,
-     BOOL_LITERAL = 308,
-     NIL_LITERAL = 309,
-     STRING_LITERAL = 310,
-     IDENTIFIER = 311
-   };
+  enum yytokentype
+  {
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    PULS = 258,                    /* PULS  */
+    MINUS = 259,                   /* MINUS  */
+    ASTERISK = 260,                /* ASTERISK  */
+    SLASH = 261,                   /* SLASH  */
+    PERCENT = 262,                 /* PERCENT  */
+    EQUAL = 263,                   /* EQUAL  */
+    PERIOD = 264,                  /* PERIOD  */
+    COMMA = 265,                   /* COMMA  */
+    COLON = 266,                   /* COLON  */
+    SEMICOLON = 267,               /* SEMICOLON  */
+    LESSTHAN = 268,                /* LESSTHAN  */
+    GREATERTHAN = 269,             /* GREATERTHAN  */
+    LEFT_PARENTHESIS = 270,        /* LEFT_PARENTHESIS  */
+    RIGHT_PARENTHESIS = 271,       /* RIGHT_PARENTHESIS  */
+    LEFT_BLACKET = 272,            /* LEFT_BLACKET  */
+    RIGHT_BLACKET = 273,           /* RIGHT_BLACKET  */
+    LEFT_CURLY_BLACKET = 274,      /* LEFT_CURLY_BLACKET  */
+    RIGHT_CURLY_BLACKET = 275,     /* RIGHT_CURLY_BLACKET  */
+    EQUAL_EQUAL = 276,             /* EQUAL_EQUAL  */
+    LESSTHAN_EQUAL = 277,          /* LESSTHAN_EQUAL  */
+    GREATERTHAN_EQUAL = 278,       /* GREATERTHAN_EQUAL  */
+    NOT_EQUAL = 279,               /* NOT_EQUAL  */
+    PULS_EQUAL = 280,              /* PULS_EQUAL  */
+    MINUS_EQUAL = 281,             /* MINUS_EQUAL  */
+    ASTERISK_EQUAL = 282,          /* ASTERISK_EQUAL  */
+    SLASH_EQUAL = 283,             /* SLASH_EQUAL  */
+    NEWLINE = 284,                 /* NEWLINE  */
+    KW_AND = 285,                  /* KW_AND  */
+    KW_OR = 286,                   /* KW_OR  */
+    KW_NOT = 287,                  /* KW_NOT  */
+    KW_XOR = 288,                  /* KW_XOR  */
+    KW_NAND = 289,                 /* KW_NAND  */
+    LW_NOR = 290,                  /* LW_NOR  */
+    KW_IMPORT = 291,               /* KW_IMPORT  */
+    KW_FROM = 292,                 /* KW_FROM  */
+    KW_AS = 293,                   /* KW_AS  */
+    KW_CLASS = 294,                /* KW_CLASS  */
+    KW_FUNCTION = 295,             /* KW_FUNCTION  */
+    KW_CONSTRUCTOR = 296,          /* KW_CONSTRUCTOR  */
+    KW_GETTER = 297,               /* KW_GETTER  */
+    KW_SETTER = 298,               /* KW_SETTER  */
+    KW_IF = 299,                   /* KW_IF  */
+    KW_ELSE = 300,                 /* KW_ELSE  */
+    KW_END = 301,                  /* KW_END  */
+    KW_WHILE = 302,                /* KW_WHILE  */
+    KW_UNTIL = 303,                /* KW_UNTIL  */
+    KW_BREAK = 304,                /* KW_BREAK  */
+    KW_RETURN = 305                /* KW_RETURN  */
+  };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Tokens.  */
-#define PULS 258
-#define MINUS 259
-#define ASTERISK 260
-#define SLASH 261
-#define PERCENT 262
-#define EQUAL 263
-#define PERIOD 264
-#define COMMA 265
-#define COLON 266
-#define SEMICOLON 267
-#define LESSTHAN 268
-#define GREATERTHAN 269
-#define LEFT_PARENTHESIS 270
-#define RIGHT_PARENTHESIS 271
-#define LEFT_BLACKET 272
-#define RIGHT_BLACKET 273
-#define LEFT_CURLY_BLACKET 274
-#define RIGHT_CURLY_BLACKET 275
-#define EQUAL_EQUAL 276
-#define LESSTHAN_EQUAL 277
-#define GREATERTHAN_EQUAL 278
-#define NOT_EQUAL 279
-#define PULS_EQUAL 280
-#define MINUS_EQUAL 281
-#define ASTERISK_EQUAL 282
-#define SLASH_EQUAL 283
-#define NEWLINE 284
-#define KW_AND 285
-#define KW_OR 286
-#define KW_NOT 287
-#define KW_XOR 288
-#define KW_NAND 289
-#define LW_NOR 290
-#define KW_IMPORT 291
-#define KW_FROM 292
-#define KW_AS 293
-#define KW_CLASS 294
-#define KW_FUNCTION 295
-#define KW_CONSTRUCTOR 296
-#define KW_GETTER 297
-#define KW_SETTER 298
-#define KW_IF 299
-#define KW_ELSE 300
-#define KW_END 301
-#define KW_WHILE 302
-#define KW_UNTIL 303
-#define KW_BREAK 304
-#define KW_RETURN 305
-#define INTEGER_LITERAL 306
-#define FLOAT_LITERAL 307
-#define BOOL_LITERAL 308
-#define NIL_LITERAL 309
-#define STRING_LITERAL 310
-#define IDENTIFIER 311
 
-
-
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 9 "parser.y"
+union YYSTYPE
 {
-    AST_node ast;
-}
-/* Line 1529 of yacc.c.  */
-#line 165 "parser.tab.h"
-	YYSTYPE;
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
+#line 15 "parser.y"
+
+    int i;
+
+#line 118 "parser.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
 #endif
+
 
 extern YYSTYPE yylval;
 
+int yyparse (void);
+
+#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */

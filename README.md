@@ -1,10 +1,13 @@
 # about
 self made programming language "Sapphire"
 
+## メモ
+このリポジトリでは、lex.yy.cやparser.tab.cなどのc言語のファイルが存在しますが、c++のソースだファイルとしてインクルードされます。
+
 # requirements
 - flex
 - bison
-- gcc
+- g++
 
 # documents
 - Coming soon...
@@ -13,6 +16,3 @@ self made programming language "Sapphire"
 - Mac OS Catalina 10.15.7
 
 # todo
-- write ROOT NAMESPACE.
-- write JIT compiler.
-- write runtime.

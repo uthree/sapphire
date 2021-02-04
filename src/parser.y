@@ -1,13 +1,19 @@
 %{
     #pragma once
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include "./ast.h"
-    #define YYDEBUG 1
+    #include <cstdio>
+    #include <iostream>
+    #include "ast.cpp"
+    using namespace std;
+
+    int yylex();
+    extern "C" int yyparse();
+    extern "C" FILE *yyin;
+    
+    extern "C" void yyerror(char *s);
 %}
+
 %union {
-    AST_node ast;
+    int i;
 }
 
 /*
@@ -17,7 +23,7 @@
 //     | | | |  | |  < |  __| | . ` |\___ \ 
 //     | | | |__| | . \| |____| |\  |____) |
 //     |_|  \____/|_|\_\______|_| \_|_____/                          
-*/                                
+*/   
 
 %left PULS
 %left MINUS
@@ -73,13 +79,6 @@
 %token KW_BREAK
 %token KW_RETURN
 
-%token <ast> INTEGER_LITERAL
-%token <ast> FLOAT_LITERAL;
-%token <ast> BOOL_LITERAL;
-%token <ast> NIL_LITERAL;
-%token <ast> STRING_LITERAL;
-%token <ast> IDENTIFIER;
-
 /*
 //   _________     _______  ______  _____ 
 //  |__   __\ \   / /  __ \|  ____|/ ____|
@@ -89,15 +88,6 @@
 //     |_|     |_|  |_|    |______|_____/ 
 */
 
-
-%type <ast> literal;
-%type <ast> program;
-%type <ast> expression;
-
-%type <ast> setter;
-%type <ast> getter;
-
-
 /*
 //   _____  _    _ _      ______  _____ 
 //  |  __ \| |  | | |    |  ____|/ ____|
@@ -105,74 +95,10 @@
 //  |  _  /| |  | | |    |  __|  \___ \ 
 //  | | \ \| |__| | |____| |____ ____) |
 //  |_|  \_\\____/|______|______|_____/ 
-*/                                           
+*/       
 %%
 
-program
-    : expression NEWLINE{
-        AST_ROOT = $1;
-    };
-
-expression
-    : literal
-    | getter
-    | setter
-    ;
-
-setter
-    : expression PERIOD IDENTIFIER EQUAL expression
-    {
-        printf("setter\n");
-        AST_node *list = {
-            &$1,
-            $3,
-            &$5
-        };
-        AST_node ast = {
-            op_setter,
-            list,
-            NULL
-        };
-        $$ = ast;
-    }
-
-literal
-    : INTEGER_LITERAL {
-        printf("int");
-        $$ = $1;   
-    }
-    | FLOAT_LITERAL {
-        printf("float");
-        $$ = $1;
-    }
-    | STRING_LITERAL {
-        printf("string");
-        $$ = $1;
-    }
-    ;
-
-getter
-    : IDENTIFIER {
-        printf("single_getter\n");
-        $$ = $1;
-    }
-    | expression PERIOD IDENTIFIER {
-        printf("getter\n");
-        AST_node *list = {
-            &$1,
-            $3
-        };
-        AST_node ast = {
-            op_getter,
-            list,
-            NULL
-        };
-        $$ = ast;
-    }
-    ;
-
-
-
+program: PULS;
 
 %%
 #include "lex.yy.c"

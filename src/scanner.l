@@ -1,15 +1,15 @@
 %{
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include "./ast.h"
+#pragma once
+#include "parser.tab.h"
+using namespace std;
 
-    int yywrap() {
-        printf("WRAP");
-        return 1;
-    }
+extern "C" int yywrap(); 
+int yywrap() {
+    return 1;
+}
 %}
-%%
 
+%%
 "+"                 return PULS;
 "-"                 return MINUS;
 "*"                 return ASTERISK;
@@ -64,75 +64,5 @@
 "break"             return KW_BREAK;
 "return"            return KW_RETURN;
 
-[1-9][0-9]*         {
-    // Integer
-    long int *tmp;
-    sscanf(yytext, "%ld", &tmp);
-    AST_node ast = {
-        token_integer,
-        NULL,
-        tmp
-    };
-    yylval.ast = ast;
-    
-    return INTEGER_LITERAL;
-};
-
-[0-9]\.[0-9]*         {
-    // Float
-    double *tmp;
-    sscanf(yytext, "%lf", &tmp);
-    AST_node ast = {
-        token_float,
-        NULL,
-        tmp
-    };
-    yylval.ast = ast;
-    
-    return FLOAT_LITERAL;
-};
-
-(true|false)        return BOOL_LITERAL;
-"nil"               return NIL_LITERAL;
-
-\"(.*)\"            {
-    // 文字列(char[] ポインタ)
-    char *str;
-    str = (char *)malloc(sizeof(yytext));
-    str = yytext;
-    if(str == NULL) {
-        printf("FAILED ALLOCATE MEMORY\n");
-        exit(EXIT_FAILURE);
-    }
-
-    AST_node ast = {
-        token_string,
-        NULL,
-        str
-    };
-    
-    yylval.ast = ast;
-    return STRING_LITERAL;
-};
-
-[A-Za-z][A-Za-z0-9]* {
-    // 変数名などの識別子(char[] ポインタ)
-    char *str;
-    str = (char *)malloc(sizeof(yytext));
-    str = yytext;
-    printf(str);
-    if(str == NULL) {
-        printf("FAILED ALLOCATE MEMORY\n");
-        exit(EXIT_FAILURE);
-    }
-
-    AST_node ast = {
-        token_identfier,
-        NULL,
-        str
-    };
-    yylval.ast = ast;
-    return IDENTIFIER;
-};
 
 %%
