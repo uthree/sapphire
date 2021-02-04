@@ -13,7 +13,7 @@
 %}
 
 %union {
-    int i;
+    AST ast;
 }
 
 /*

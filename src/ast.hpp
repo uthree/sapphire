@@ -7,10 +7,11 @@
 
 class AST {
 public:
-    AST(); // コンストラクタ
+    AST(std::string content, ASTType type, std::vector<AST*> children, bool token); // コンストラクタ
     ~AST(); // デストラクタ
     AST(AST& other); // コピーコンストラクタ。
     bool token; // トークンであるか
     std::string content; // 内容
-    std::vector<AST*> childlen; //子要素
+    std::vector<AST*> children; //子要素
+    ASTType type; //構文またはトークンの種類。 
 };
