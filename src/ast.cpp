@@ -1,18 +1,10 @@
 #pragma once
 #include "ast.hpp"
 
-// コンストラクタ
-AST::AST(std::string content, ASTType type, std::vector<AST*> children, bool token) {
-    this->content = content;
-    this->children = children;
-    this->type = type;
-    this->token = token;
-}
 
-// コピーコンストラクタ
-AST::AST(const AST& other) {
-    this->content = other.content;
-    this->children = other.children;
-    this->token = other.token;
-    this->type = other.type;
-}
+struct AST {
+    ASTType type; // ASTの種類
+    char* content; // 内容。
+    struct AST* children; // 子要素。可変長配列。要素追加する際に随時メモリを確保する。
+    bool token; // 終端記号であるか
+};

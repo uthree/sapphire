@@ -14,7 +14,6 @@
 
 %union {
     AST ast;
-
 }
 
 /*
@@ -89,6 +88,8 @@
 //     |_|     |_|  |_|    |______|_____/ 
 */
 
+%type <ast> expression
+
 /*
 //   _____  _    _ _      ______  _____ 
 //  |  __ \| |  | | |    |  ____|/ ____|
@@ -100,6 +101,11 @@
 %%
 
 program: PULS;
+
+expression
+    : expression PULS expression {
+        
+    }
 
 %%
 #include "lex.yy.c"

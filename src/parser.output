@@ -1,3 +1,8 @@
+Nonterminals useless in grammar
+
+    expression
+
+
 Terminals unused in grammar
 
     MINUS
@@ -47,6 +52,11 @@ Terminals unused in grammar
     KW_UNTIL
     KW_BREAK
     KW_RETURN
+
+
+Rules useless in grammar
+
+    2 expression: expression PULS expression
 
 
 Grammar

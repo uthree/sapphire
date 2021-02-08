@@ -112,10 +112,9 @@ union YYSTYPE
 {
 #line 15 "parser.y"
 
-    aststruct astt;
+    AST ast;
 
-
-#line 119 "parser.tab.h"
+#line 118 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

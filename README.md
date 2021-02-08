@@ -16,4 +16,5 @@ self made programming language "Sapphire"
 - Mac OS Catalina 10.15.7
 
 # todo
+- パーサーを名前空間に入れる
 - ASTをクラスで作るとバグるので、structに換装する。
