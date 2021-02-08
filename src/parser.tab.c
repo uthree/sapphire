@@ -548,7 +548,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,   105,   105,   108,   124
+       0,   105,   105,   108,   122
 };
 #endif
 
@@ -1138,10 +1138,8 @@ yyreduce:
         printf("a");
         AST* children;
         children = (AST*)malloc(sizeof(AST)*2);
-        children = {
-            (yyvsp[-2].ast),
-            (yyvsp[0].ast)
-        };
+        children[0] = (yyvsp[-2].ast);
+        children[1] = (yyvsp[0].ast);
         AST temp = {
             ASTType::op_add,
             nullptr,
@@ -1150,11 +1148,11 @@ yyreduce:
         };
         (yyval.ast) = temp;
     }
-#line 1154 "parser.tab.c"
+#line 1152 "parser.tab.c"
     break;
 
 
-#line 1158 "parser.tab.c"
+#line 1156 "parser.tab.c"
 
       default: break;
     }
@@ -1348,7 +1346,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 126 "parser.y"
+#line 124 "parser.y"
 
 #include "lex.yy.c"
 

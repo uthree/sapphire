@@ -106,13 +106,10 @@ program: expression;
 
 expression
     : expression PULS expression {
-        printf("a");
         AST* children;
         children = (AST*)malloc(sizeof(AST)*2);
-        children = &{
-            $1,
-            $3
-        };
+        children[0] = $1;
+        children[1] = $3;
         AST temp = {
             ASTType::op_add,
             nullptr,
