@@ -76,7 +76,7 @@ int yywrap() {
         false
     };
     yylval.ast = ast;
-    return INTEGER_LITERAL
+    return INTEGER_LITERAL;
 }
 
 %%

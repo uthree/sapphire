@@ -91,7 +91,6 @@
 */
 
 %type <ast> expression
-%type <ast> INTEGER_LITERAL
 
 /*
 //   _____  _    _ _      ______  _____ 

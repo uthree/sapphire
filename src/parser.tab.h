@@ -101,7 +101,8 @@ extern int yydebug;
     KW_WHILE = 302,                /* KW_WHILE  */
     KW_UNTIL = 303,                /* KW_UNTIL  */
     KW_BREAK = 304,                /* KW_BREAK  */
-    KW_RETURN = 305                /* KW_RETURN  */
+    KW_RETURN = 305,               /* KW_RETURN  */
+    INTEGER_LITERAL = 306          /* INTEGER_LITERAL  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -114,7 +115,7 @@ union YYSTYPE
 
     AST ast;
 
-#line 118 "parser.tab.h"
+#line 119 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

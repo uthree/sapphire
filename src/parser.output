@@ -52,6 +52,7 @@ Terminals unused in grammar
     KW_UNTIL
     KW_BREAK
     KW_RETURN
+    INTEGER_LITERAL
 
 
 Rules useless in grammar
@@ -118,13 +119,14 @@ Terminals, with rules where they appear
     KW_UNTIL (303)
     KW_BREAK (304)
     KW_RETURN (305)
+    INTEGER_LITERAL (306)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (51)
+    $accept (52)
         on left: 0
-    program (52)
+    program (53)
         on left: 1
         on right: 0
 

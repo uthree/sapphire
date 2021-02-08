@@ -160,8 +160,9 @@ enum yysymbol_kind_t
   YYSYMBOL_KW_UNTIL = 48,                  /* KW_UNTIL  */
   YYSYMBOL_KW_BREAK = 49,                  /* KW_BREAK  */
   YYSYMBOL_KW_RETURN = 50,                 /* KW_RETURN  */
-  YYSYMBOL_YYACCEPT = 51,                  /* $accept  */
-  YYSYMBOL_program = 52                    /* program  */
+  YYSYMBOL_INTEGER_LITERAL = 51,           /* INTEGER_LITERAL  */
+  YYSYMBOL_YYACCEPT = 52,                  /* $accept  */
+  YYSYMBOL_program = 53                    /* program  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -486,7 +487,7 @@ union yyalloc
 #define YYLAST   1
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  51
+#define YYNTOKENS  52
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -495,7 +496,7 @@ union yyalloc
 #define YYNSTATES  4
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   305
+#define YYMAXUTOK   306
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -539,14 +540,14 @@ static const yytype_int8 yytranslate[] =
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50
+      45,    46,    47,    48,    49,    50,    51
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,   103,   103
+       0,   105,   105
 };
 #endif
 
@@ -572,7 +573,7 @@ static const char *const yytname[] =
   "KW_OR", "KW_NOT", "KW_XOR", "KW_NAND", "LW_NOR", "KW_IMPORT", "KW_FROM",
   "KW_AS", "KW_CLASS", "KW_FUNCTION", "KW_CONSTRUCTOR", "KW_GETTER",
   "KW_SETTER", "KW_IF", "KW_ELSE", "KW_END", "KW_WHILE", "KW_UNTIL",
-  "KW_BREAK", "KW_RETURN", "$accept", "program", YY_NULLPTR
+  "KW_BREAK", "KW_RETURN", "INTEGER_LITERAL", "$accept", "program", YY_NULLPTR
 };
 
 static const char *
@@ -592,7 +593,7 @@ static const yytype_int16 yytoknum[] =
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
      295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305
+     305,   306
 };
 #endif
 
@@ -650,13 +651,13 @@ static const yytype_int8 yycheck[] =
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    52,     0
+       0,     3,    53,     0
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    51,    52
+       0,    52,    53
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1130,7 +1131,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1134 "parser.tab.c"
+#line 1135 "parser.tab.c"
 
       default: break;
     }
@@ -1324,7 +1325,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 110 "parser.y"
+#line 112 "parser.y"
 
 #include "lex.yy.c"
 

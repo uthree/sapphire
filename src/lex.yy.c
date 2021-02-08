@@ -1057,7 +1057,7 @@ YY_RULE_SETUP
         false
     };
     yylval.ast = ast;
-    return INTEGER_LITERAL
+    return INTEGER_LITERAL;
 }
 	YY_BREAK
 case 50:
