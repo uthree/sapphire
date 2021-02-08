@@ -102,12 +102,26 @@
 */       
 %%
 
-program: PULS;
+program: expression;
 
 expression
     : expression PULS expression {
-        
+        printf("a");
+        AST* children;
+        children = (AST*)malloc(sizeof(AST)*2);
+        children = &{
+            $1,
+            $3
+        };
+        AST temp = {
+            ASTType::op_add,
+            nullptr,
+            children,
+            false
+        };
+        $$ = temp;
     }
+    | INTEGER_LITERAL
 
 %%
 #include "lex.yy.c"

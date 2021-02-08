@@ -162,7 +162,8 @@ enum yysymbol_kind_t
   YYSYMBOL_KW_RETURN = 50,                 /* KW_RETURN  */
   YYSYMBOL_INTEGER_LITERAL = 51,           /* INTEGER_LITERAL  */
   YYSYMBOL_YYACCEPT = 52,                  /* $accept  */
-  YYSYMBOL_program = 53                    /* program  */
+  YYSYMBOL_program = 53,                   /* program  */
+  YYSYMBOL_expression = 54                 /* expression  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -482,18 +483,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  3
+#define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   1
+#define YYLAST   3
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  52
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  2
+#define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  2
+#define YYNRULES  4
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  4
+#define YYNSTATES  7
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   306
@@ -547,7 +548,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,   105,   105
+       0,   105,   105,   108,   124
 };
 #endif
 
@@ -573,7 +574,8 @@ static const char *const yytname[] =
   "KW_OR", "KW_NOT", "KW_XOR", "KW_NAND", "LW_NOR", "KW_IMPORT", "KW_FROM",
   "KW_AS", "KW_CLASS", "KW_FUNCTION", "KW_CONSTRUCTOR", "KW_GETTER",
   "KW_SETTER", "KW_IF", "KW_ELSE", "KW_END", "KW_WHILE", "KW_UNTIL",
-  "KW_BREAK", "KW_RETURN", "INTEGER_LITERAL", "$accept", "program", YY_NULLPTR
+  "KW_BREAK", "KW_RETURN", "INTEGER_LITERAL", "$accept", "program",
+  "expression", YY_NULLPTR
 };
 
 static const char *
@@ -597,7 +599,7 @@ static const yytype_int16 yytoknum[] =
 };
 #endif
 
-#define YYPACT_NINF (-4)
+#define YYPACT_NINF (-52)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -611,7 +613,7 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,    -4,     1,    -4
+     -51,   -52,     1,    -1,   -52,   -51,   -52
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -619,19 +621,19 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     2,     0,     1
+       0,     4,     0,     2,     1,     0,     3
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4
+     -52,   -52,    -2
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2
+       0,     2,     3
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -639,31 +641,31 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     3
+       1,     4,     5,     6
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     0
+      51,     0,     3,     5
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    53,     0
+       0,    51,    53,    54,     0,     3,    54
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    52,    53
+       0,    52,    53,    54,    54
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1
+       0,     2,     1,     3,     1
 };
 
 
@@ -1130,8 +1132,29 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 3: /* expression: expression PULS expression  */
+#line 108 "parser.y"
+                                 {
+        printf("a");
+        AST* children;
+        children = (AST*)malloc(sizeof(AST)*2);
+        children = {
+            (yyvsp[-2].ast),
+            (yyvsp[0].ast)
+        };
+        AST temp = {
+            ASTType::op_add,
+            nullptr,
+            children,
+            false
+        };
+        (yyval.ast) = temp;
+    }
+#line 1154 "parser.tab.c"
+    break;
 
-#line 1135 "parser.tab.c"
+
+#line 1158 "parser.tab.c"
 
       default: break;
     }
@@ -1325,7 +1348,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 112 "parser.y"
+#line 126 "parser.y"
 
 #include "lex.yy.c"
 

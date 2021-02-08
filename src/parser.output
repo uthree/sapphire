@@ -1,8 +1,3 @@
-Nonterminals useless in grammar
-
-    expression
-
-
 Terminals unused in grammar
 
     MINUS
@@ -52,26 +47,23 @@ Terminals unused in grammar
     KW_UNTIL
     KW_BREAK
     KW_RETURN
-    INTEGER_LITERAL
-
-
-Rules useless in grammar
-
-    2 expression: expression PULS expression
 
 
 Grammar
 
     0 $accept: program $end
 
-    1 program: PULS
+    1 program: expression
+
+    2 expression: expression PULS expression
+    3           | INTEGER_LITERAL
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    PULS (258) 1
+    PULS (258) 2
     MINUS (259)
     ASTERISK (260)
     SLASH (261)
@@ -119,7 +111,7 @@ Terminals, with rules where they appear
     KW_UNTIL (303)
     KW_BREAK (304)
     KW_RETURN (305)
-    INTEGER_LITERAL (306)
+    INTEGER_LITERAL (306) 3
 
 
 Nonterminals, with rules where they appear
@@ -129,33 +121,64 @@ Nonterminals, with rules where they appear
     program (53)
         on left: 1
         on right: 0
+    expression <ast> (54)
+        on left: 2 3
+        on right: 1 2
 
 
 State 0
 
     0 $accept: • program $end
 
-    PULS  shift, and go to state 1
+    INTEGER_LITERAL  shift, and go to state 1
 
-    program  go to state 2
+    program     go to state 2
+    expression  go to state 3
 
 
 State 1
 
-    1 program: PULS •
+    3 expression: INTEGER_LITERAL •
 
-    $default  reduce using rule 1 (program)
+    $default  reduce using rule 3 (expression)
 
 
 State 2
 
     0 $accept: program • $end
 
-    $end  shift, and go to state 3
+    $end  shift, and go to state 4
 
 
 State 3
 
+    1 program: expression •
+    2 expression: expression • PULS expression
+
+    PULS  shift, and go to state 5
+
+    $default  reduce using rule 1 (program)
+
+
+State 4
+
     0 $accept: program $end •
 
     $default  accept
+
+
+State 5
+
+    2 expression: expression PULS • expression
+
+    INTEGER_LITERAL  shift, and go to state 1
+
+    expression  go to state 6
+
+
+State 6
+
+    2 expression: expression • PULS expression
+    2           | expression PULS expression •
+
+    $default  reduce using rule 2 (expression)
