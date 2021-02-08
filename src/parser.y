@@ -79,6 +79,8 @@
 %token KW_BREAK
 %token KW_RETURN
 
+%token INTEGER_LITERAL
+
 /*
 //   _________     _______  ______  _____ 
 //  |__   __\ \   / /  __ \|  ____|/ ____|
@@ -89,6 +91,7 @@
 */
 
 %type <ast> expression
+%type <ast> INTEGER_LITERAL
 
 /*
 //   _____  _    _ _      ______  _____ 

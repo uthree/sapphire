@@ -66,16 +66,15 @@ int yywrap() {
 "return"            return KW_RETURN;
 
 [0-9]+ {
-    AST ast;
     char* content;
     content = (char*)malloc(sizeof(yytext));
     content = yytext;
-    ast = {
-        integer_literal,
+    AST ast = {
+        ASTType::integer_literal,
         content,
         nullptr,
         false
-    }
+    };
     yylval.ast = ast;
     return INTEGER_LITERAL
 }
