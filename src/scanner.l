@@ -72,8 +72,8 @@ int yywrap() {
     AST ast = {
         ASTType::integer_literal,
         content,
-        nullptr,
-        false
+        {},
+        true
     };
     yylval.ast = ast;
     return INTEGER_LITERAL;

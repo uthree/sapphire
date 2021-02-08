@@ -1053,8 +1053,8 @@ YY_RULE_SETUP
     AST ast = {
         ASTType::integer_literal,
         content,
-        nullptr,
-        false
+        {},
+        true
     };
     yylval.ast = ast;
     return INTEGER_LITERAL;

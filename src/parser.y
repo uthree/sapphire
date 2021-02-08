@@ -102,31 +102,47 @@
 */       
 %%
 
-program: expression;
+program: expression {
+    show_ast(&$1);
+};
 
 expression
-    : expression PULS expression {
+    : expression SLASH expression {
         AST* children;
-        children = (AST*)malloc(sizeof(AST)*2);
-        children[0] = $1;
-        children[1] = $3;
+        AST temp = {
+            ASTType::op_div,
+            nullptr,
+            {&$1, &$3},
+            false
+        };
+        $$ = temp;
+    }
+    | expression ASTERISK expression {
+        AST* children;
+        AST temp = {
+            ASTType::op_mul,
+            nullptr,
+            {&$1, &$3},
+            false
+        };
+        $$ = temp;
+    }
+    | expression PULS expression {
+        AST* children;
         AST temp = {
             ASTType::op_add,
             nullptr,
-            children,
+            {&$1, &$3},
             false
         };
         $$ = temp;
     }
     | expression MINUS expression {
         AST* children;
-        children = (AST*)malloc(sizeof(AST)*2);
-        children[0] = $1;
-        children[1] = $3;
         AST temp = {
             ASTType::op_sub,
             nullptr,
-            children,
+            {&$1, &$3},
             false
         };
         $$ = temp;

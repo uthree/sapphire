@@ -1,8 +1,5 @@
 Terminals unused in grammar
 
-    MINUS
-    ASTERISK
-    SLASH
     PERCENT
     EQUAL
     PERIOD
@@ -55,18 +52,21 @@ Grammar
 
     1 program: expression
 
-    2 expression: expression PULS expression
-    3           | INTEGER_LITERAL
+    2 expression: expression SLASH expression
+    3           | expression ASTERISK expression
+    4           | expression PULS expression
+    5           | expression MINUS expression
+    6           | INTEGER_LITERAL
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    PULS (258) 2
-    MINUS (259)
-    ASTERISK (260)
-    SLASH (261)
+    PULS (258) 4
+    MINUS (259) 5
+    ASTERISK (260) 3
+    SLASH (261) 2
     PERCENT (262)
     EQUAL (263)
     PERIOD (264)
@@ -111,7 +111,7 @@ Terminals, with rules where they appear
     KW_UNTIL (303)
     KW_BREAK (304)
     KW_RETURN (305)
-    INTEGER_LITERAL (306) 3
+    INTEGER_LITERAL (306) 6
 
 
 Nonterminals, with rules where they appear
@@ -122,8 +122,8 @@ Nonterminals, with rules where they appear
         on left: 1
         on right: 0
     expression <ast> (54)
-        on left: 2 3
-        on right: 1 2
+        on left: 2 3 4 5 6
+        on right: 1 2 3 4 5
 
 
 State 0
@@ -138,9 +138,9 @@ State 0
 
 State 1
 
-    3 expression: INTEGER_LITERAL •
+    6 expression: INTEGER_LITERAL •
 
-    $default  reduce using rule 3 (expression)
+    $default  reduce using rule 6 (expression)
 
 
 State 2
@@ -153,9 +153,15 @@ State 2
 State 3
 
     1 program: expression •
-    2 expression: expression • PULS expression
+    2 expression: expression • SLASH expression
+    3           | expression • ASTERISK expression
+    4           | expression • PULS expression
+    5           | expression • MINUS expression
 
-    PULS  shift, and go to state 5
+    PULS      shift, and go to state 5
+    MINUS     shift, and go to state 6
+    ASTERISK  shift, and go to state 7
+    SLASH     shift, and go to state 8
 
     $default  reduce using rule 1 (program)
 
@@ -169,16 +175,88 @@ State 4
 
 State 5
 
-    2 expression: expression PULS • expression
+    4 expression: expression PULS • expression
 
     INTEGER_LITERAL  shift, and go to state 1
 
-    expression  go to state 6
+    expression  go to state 9
 
 
 State 6
 
-    2 expression: expression • PULS expression
-    2           | expression PULS expression •
+    5 expression: expression MINUS • expression
+
+    INTEGER_LITERAL  shift, and go to state 1
+
+    expression  go to state 10
+
+
+State 7
+
+    3 expression: expression ASTERISK • expression
+
+    INTEGER_LITERAL  shift, and go to state 1
+
+    expression  go to state 11
+
+
+State 8
+
+    2 expression: expression SLASH • expression
+
+    INTEGER_LITERAL  shift, and go to state 1
+
+    expression  go to state 12
+
+
+State 9
+
+    2 expression: expression • SLASH expression
+    3           | expression • ASTERISK expression
+    4           | expression • PULS expression
+    4           | expression PULS expression •
+    5           | expression • MINUS expression
+
+    MINUS     shift, and go to state 6
+    ASTERISK  shift, and go to state 7
+    SLASH     shift, and go to state 8
+
+    $default  reduce using rule 4 (expression)
+
+
+State 10
+
+    2 expression: expression • SLASH expression
+    3           | expression • ASTERISK expression
+    4           | expression • PULS expression
+    5           | expression • MINUS expression
+    5           | expression MINUS expression •
+
+    ASTERISK  shift, and go to state 7
+    SLASH     shift, and go to state 8
+
+    $default  reduce using rule 5 (expression)
+
+
+State 11
+
+    2 expression: expression • SLASH expression
+    3           | expression • ASTERISK expression
+    3           | expression ASTERISK expression •
+    4           | expression • PULS expression
+    5           | expression • MINUS expression
+
+    SLASH  shift, and go to state 8
+
+    $default  reduce using rule 3 (expression)
+
+
+State 12
+
+    2 expression: expression • SLASH expression
+    2           | expression SLASH expression •
+    3           | expression • ASTERISK expression
+    4           | expression • PULS expression
+    5           | expression • MINUS expression
 
     $default  reduce using rule 2 (expression)

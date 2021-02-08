@@ -485,16 +485,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   3
+#define YYLAST   15
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  52
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  4
+#define YYNRULES  7
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  7
+#define YYNSTATES  13
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   306
@@ -546,9 +546,9 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
-       0,   105,   105,   108,   122
+       0,   105,   105,   110,   120,   130,   140,   150
 };
 #endif
 
@@ -599,7 +599,7 @@ static const yytype_int16 yytoknum[] =
 };
 #endif
 
-#define YYPACT_NINF (-52)
+#define YYPACT_NINF (-39)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -613,7 +613,8 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -51,   -52,     1,    -1,   -52,   -51,   -52
+     -38,   -39,    14,    -3,   -39,   -38,   -38,   -38,   -38,     4,
+       6,     9,   -39
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -621,13 +622,14 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     4,     0,     2,     1,     0,     3
+       0,     7,     0,     2,     1,     0,     0,     0,     0,     5,
+       6,     4,     3
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -52,   -52,    -2
+     -39,   -39,    -1
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -641,31 +643,34 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     4,     5,     6
+       5,     6,     7,     8,     9,    10,    11,    12,     6,     7,
+       8,     7,     8,     1,     4,     8
 };
 
 static const yytype_int8 yycheck[] =
 {
-      51,     0,     3,     5
+       3,     4,     5,     6,     5,     6,     7,     8,     4,     5,
+       6,     5,     6,    51,     0,     6
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    51,    53,    54,     0,     3,    54
+       0,    51,    53,    54,     0,     3,     4,     5,     6,    54,
+      54,    54,    54
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    52,    53,    54,    54
+       0,    52,    53,    54,    54,    54,    54,    54
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     3,     1
+       0,     2,     1,     3,     3,     3,     3,     1
 };
 
 
@@ -1132,27 +1137,76 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 3: /* expression: expression PULS expression  */
-#line 108 "parser.y"
-                                 {
-        printf("a");
+  case 2: /* program: expression  */
+#line 105 "parser.y"
+                    {
+    show_ast(&(yyvsp[0].ast));
+}
+#line 1146 "parser.tab.c"
+    break;
+
+  case 3: /* expression: expression SLASH expression  */
+#line 110 "parser.y"
+                                  {
         AST* children;
-        children = (AST*)malloc(sizeof(AST)*2);
-        children[0] = (yyvsp[-2].ast);
-        children[1] = (yyvsp[0].ast);
         AST temp = {
-            ASTType::op_add,
+            ASTType::op_div,
             nullptr,
-            children,
+            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
             false
         };
         (yyval.ast) = temp;
     }
-#line 1152 "parser.tab.c"
+#line 1161 "parser.tab.c"
+    break;
+
+  case 4: /* expression: expression ASTERISK expression  */
+#line 120 "parser.y"
+                                     {
+        AST* children;
+        AST temp = {
+            ASTType::op_mul,
+            nullptr,
+            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
+            false
+        };
+        (yyval.ast) = temp;
+    }
+#line 1176 "parser.tab.c"
+    break;
+
+  case 5: /* expression: expression PULS expression  */
+#line 130 "parser.y"
+                                 {
+        AST* children;
+        AST temp = {
+            ASTType::op_add,
+            nullptr,
+            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
+            false
+        };
+        (yyval.ast) = temp;
+    }
+#line 1191 "parser.tab.c"
+    break;
+
+  case 6: /* expression: expression MINUS expression  */
+#line 140 "parser.y"
+                                  {
+        AST* children;
+        AST temp = {
+            ASTType::op_sub,
+            nullptr,
+            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
+            false
+        };
+        (yyval.ast) = temp;
+    }
+#line 1206 "parser.tab.c"
     break;
 
 
-#line 1156 "parser.tab.c"
+#line 1210 "parser.tab.c"
 
       default: break;
     }
@@ -1346,7 +1400,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 124 "parser.y"
+#line 152 "parser.y"
 
 #include "lex.yy.c"
 
