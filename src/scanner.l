@@ -11,7 +11,7 @@ int yywrap() {
 %}
 
 %%
-"+"                 return PULS;
+"+"                 return PLUS;
 "-"                 return MINUS;
 "*"                 return ASTERISK;
 "/"                 return SLASH;
@@ -75,6 +75,7 @@ int yywrap() {
         {},
         true
     };
+    printf(ast.content);
     yylval.ast = ast;
     return INTEGER_LITERAL;
 }

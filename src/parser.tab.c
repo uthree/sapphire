@@ -112,7 +112,7 @@ enum yysymbol_kind_t
   YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-  YYSYMBOL_PULS = 3,                       /* PULS  */
+  YYSYMBOL_PLUS = 3,                       /* PLUS  */
   YYSYMBOL_MINUS = 4,                      /* MINUS  */
   YYSYMBOL_ASTERISK = 5,                   /* ASTERISK  */
   YYSYMBOL_SLASH = 6,                      /* SLASH  */
@@ -548,7 +548,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   105,   105,   110,   120,   130,   140,   150
+       0,   105,   105,   112,   122,   132,   143,   153
 };
 #endif
 
@@ -564,7 +564,7 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "PULS", "MINUS",
+  "\"end of file\"", "error", "\"invalid token\"", "PLUS", "MINUS",
   "ASTERISK", "SLASH", "PERCENT", "EQUAL", "PERIOD", "COMMA", "COLON",
   "SEMICOLON", "LESSTHAN", "GREATERTHAN", "LEFT_PARENTHESIS",
   "RIGHT_PARENTHESIS", "LEFT_BLACKET", "RIGHT_BLACKET",
@@ -1140,13 +1140,15 @@ yyreduce:
   case 2: /* program: expression  */
 #line 105 "parser.y"
                     {
-    show_ast(&(yyvsp[0].ast));
+    printf("log");
+    //printf("%d",$1.type);
+    printf("%d",(yyvsp[0].ast).children[0]->token);
 }
-#line 1146 "parser.tab.c"
+#line 1148 "parser.tab.c"
     break;
 
   case 3: /* expression: expression SLASH expression  */
-#line 110 "parser.y"
+#line 112 "parser.y"
                                   {
         AST* children;
         AST temp = {
@@ -1157,11 +1159,11 @@ yyreduce:
         };
         (yyval.ast) = temp;
     }
-#line 1161 "parser.tab.c"
+#line 1163 "parser.tab.c"
     break;
 
   case 4: /* expression: expression ASTERISK expression  */
-#line 120 "parser.y"
+#line 122 "parser.y"
                                      {
         AST* children;
         AST temp = {
@@ -1172,12 +1174,13 @@ yyreduce:
         };
         (yyval.ast) = temp;
     }
-#line 1176 "parser.tab.c"
+#line 1178 "parser.tab.c"
     break;
 
-  case 5: /* expression: expression PULS expression  */
-#line 130 "parser.y"
+  case 5: /* expression: expression PLUS expression  */
+#line 132 "parser.y"
                                  {
+        printf("PLUS\n");
         AST* children;
         AST temp = {
             ASTType::op_add,
@@ -1187,11 +1190,11 @@ yyreduce:
         };
         (yyval.ast) = temp;
     }
-#line 1191 "parser.tab.c"
+#line 1194 "parser.tab.c"
     break;
 
   case 6: /* expression: expression MINUS expression  */
-#line 140 "parser.y"
+#line 143 "parser.y"
                                   {
         AST* children;
         AST temp = {
@@ -1202,11 +1205,11 @@ yyreduce:
         };
         (yyval.ast) = temp;
     }
-#line 1206 "parser.tab.c"
+#line 1209 "parser.tab.c"
     break;
 
 
-#line 1210 "parser.tab.c"
+#line 1213 "parser.tab.c"
 
       default: break;
     }
@@ -1400,7 +1403,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 152 "parser.y"
+#line 155 "parser.y"
 
 #include "lex.yy.c"
 

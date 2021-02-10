@@ -54,7 +54,7 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    PULS = 258,                    /* PULS  */
+    PLUS = 258,                    /* PLUS  */
     MINUS = 259,                   /* MINUS  */
     ASTERISK = 260,                /* ASTERISK  */
     SLASH = 261,                   /* SLASH  */

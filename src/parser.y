@@ -25,7 +25,7 @@
 //     |_|  \____/|_|\_\______|_| \_|_____/                          
 */   
 
-%left PULS
+%left PLUS
 %left MINUS
 %left ASTERISK
 %left SLASH
@@ -103,7 +103,9 @@
 %%
 
 program: expression {
-    show_ast(&$1);
+    printf("log");
+    //printf("%d",$1.type);
+    printf("%d",$1.children[0]->token);
 };
 
 expression
@@ -127,7 +129,8 @@ expression
         };
         $$ = temp;
     }
-    | expression PULS expression {
+    | expression PLUS expression {
+        printf("PLUS\n");
         AST* children;
         AST temp = {
             ASTType::op_add,

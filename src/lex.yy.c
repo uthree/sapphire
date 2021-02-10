@@ -805,7 +805,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 14 "scanner.l"
-return PULS;
+return PLUS;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
@@ -1056,16 +1056,17 @@ YY_RULE_SETUP
         {},
         true
     };
+    printf(ast.content);
     yylval.ast = ast;
     return INTEGER_LITERAL;
 }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 82 "scanner.l"
+#line 83 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1069 "lex.yy.c"
+#line 1070 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2062,6 +2063,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 82 "scanner.l"
+#line 83 "scanner.l"
 
 
