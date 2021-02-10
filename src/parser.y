@@ -104,7 +104,7 @@
 
 program: expression {
     printf("log");
-    //printf("%d",$1.type);
+    printf("%d",$1.children[0]->type);
     printf("%d",$1.children[0]->token);
 };
 
