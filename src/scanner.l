@@ -1,5 +1,6 @@
 %{
 #pragma once
+#include <string.h>
 #include "parser.tab.h"
 #include "../src/ast.cpp"
 using namespace std;
@@ -66,16 +67,21 @@ int yywrap() {
 "return"            return KW_RETURN;
 
 [0-9]+ {
+    printf("INTEGER");
     char* content;
     content = (char*)malloc(sizeof(yytext));
-    content = yytext;
+
+    strcpy(content,yytext);
+    printf("%d",content);
+    printf("%d",yytext);
     AST ast = {
         ASTType::integer_literal,
         content,
         {},
         true
     };
-    printf(ast.content);
+    ast.content = content;
+    //printf(ast.content);
     yylval.ast = ast;
     return INTEGER_LITERAL;
 }

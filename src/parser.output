@@ -56,7 +56,9 @@ Grammar
     3           | expression ASTERISK expression
     4           | expression PLUS expression
     5           | expression MINUS expression
-    6           | INTEGER_LITERAL
+    6           | literal
+
+    7 literal: INTEGER_LITERAL
 
 
 Terminals, with rules where they appear
@@ -111,7 +113,7 @@ Terminals, with rules where they appear
     KW_UNTIL (303)
     KW_BREAK (304)
     KW_RETURN (305)
-    INTEGER_LITERAL (306) 6
+    INTEGER_LITERAL <ast> (306) 7
 
 
 Nonterminals, with rules where they appear
@@ -124,6 +126,9 @@ Nonterminals, with rules where they appear
     expression <ast> (54)
         on left: 2 3 4 5 6
         on right: 1 2 3 4 5
+    literal <ast> (55)
+        on left: 7
+        on right: 6
 
 
 State 0
@@ -134,20 +139,21 @@ State 0
 
     program     go to state 2
     expression  go to state 3
+    literal     go to state 4
 
 
 State 1
 
-    6 expression: INTEGER_LITERAL •
+    7 literal: INTEGER_LITERAL •
 
-    $default  reduce using rule 6 (expression)
+    $default  reduce using rule 7 (literal)
 
 
 State 2
 
     0 $accept: program • $end
 
-    $end  shift, and go to state 4
+    $end  shift, and go to state 5
 
 
 State 3
@@ -158,70 +164,66 @@ State 3
     4           | expression • PLUS expression
     5           | expression • MINUS expression
 
-    PLUS      shift, and go to state 5
-    MINUS     shift, and go to state 6
-    ASTERISK  shift, and go to state 7
-    SLASH     shift, and go to state 8
+    PLUS      shift, and go to state 6
+    MINUS     shift, and go to state 7
+    ASTERISK  shift, and go to state 8
+    SLASH     shift, and go to state 9
 
     $default  reduce using rule 1 (program)
 
 
 State 4
 
+    6 expression: literal •
+
+    $default  reduce using rule 6 (expression)
+
+
+State 5
+
     0 $accept: program $end •
 
     $default  accept
 
 
-State 5
+State 6
 
     4 expression: expression PLUS • expression
 
     INTEGER_LITERAL  shift, and go to state 1
 
-    expression  go to state 9
+    expression  go to state 10
+    literal     go to state 4
 
 
-State 6
+State 7
 
     5 expression: expression MINUS • expression
 
     INTEGER_LITERAL  shift, and go to state 1
 
-    expression  go to state 10
+    expression  go to state 11
+    literal     go to state 4
 
 
-State 7
+State 8
 
     3 expression: expression ASTERISK • expression
 
     INTEGER_LITERAL  shift, and go to state 1
 
-    expression  go to state 11
+    expression  go to state 12
+    literal     go to state 4
 
 
-State 8
+State 9
 
     2 expression: expression SLASH • expression
 
     INTEGER_LITERAL  shift, and go to state 1
 
-    expression  go to state 12
-
-
-State 9
-
-    2 expression: expression • SLASH expression
-    3           | expression • ASTERISK expression
-    4           | expression • PLUS expression
-    4           | expression PLUS expression •
-    5           | expression • MINUS expression
-
-    MINUS     shift, and go to state 6
-    ASTERISK  shift, and go to state 7
-    SLASH     shift, and go to state 8
-
-    $default  reduce using rule 4 (expression)
+    expression  go to state 13
+    literal     go to state 4
 
 
 State 10
@@ -229,16 +231,31 @@ State 10
     2 expression: expression • SLASH expression
     3           | expression • ASTERISK expression
     4           | expression • PLUS expression
+    4           | expression PLUS expression •
+    5           | expression • MINUS expression
+
+    MINUS     shift, and go to state 7
+    ASTERISK  shift, and go to state 8
+    SLASH     shift, and go to state 9
+
+    $default  reduce using rule 4 (expression)
+
+
+State 11
+
+    2 expression: expression • SLASH expression
+    3           | expression • ASTERISK expression
+    4           | expression • PLUS expression
     5           | expression • MINUS expression
     5           | expression MINUS expression •
 
-    ASTERISK  shift, and go to state 7
-    SLASH     shift, and go to state 8
+    ASTERISK  shift, and go to state 8
+    SLASH     shift, and go to state 9
 
     $default  reduce using rule 5 (expression)
 
 
-State 11
+State 12
 
     2 expression: expression • SLASH expression
     3           | expression • ASTERISK expression
@@ -246,12 +263,12 @@ State 11
     4           | expression • PLUS expression
     5           | expression • MINUS expression
 
-    SLASH  shift, and go to state 8
+    SLASH  shift, and go to state 9
 
     $default  reduce using rule 3 (expression)
 
 
-State 12
+State 13
 
     2 expression: expression • SLASH expression
     2           | expression SLASH expression •

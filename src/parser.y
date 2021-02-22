@@ -79,7 +79,7 @@
 %token KW_BREAK
 %token KW_RETURN
 
-%token INTEGER_LITERAL
+%token <ast> INTEGER_LITERAL
 
 /*
 //   _________     _______  ______  _____ 
@@ -91,6 +91,7 @@
 */
 
 %type <ast> expression
+%type <ast> literal
 
 /*
 //   _____  _    _ _      ______  _____ 
@@ -104,8 +105,10 @@
 
 program: expression {
     printf("log");
-    printf("%d",$1.children[0]->type);
-    printf("%d",$1.children[0]->token);
+    //printf("%d",$1.children[1]->type);
+    //printf("%d",$1.children[1]->token);
+    printf("%s",$1.children[0]->content);
+    printf("%s",$1.children[1]->content);
 };
 
 expression
@@ -131,7 +134,7 @@ expression
     }
     | expression PLUS expression {
         printf("PLUS\n");
-        AST* children;
+        //printf("hoegehohgoeho %s", $1.content);
         AST temp = {
             ASTType::op_add,
             nullptr,
@@ -150,7 +153,12 @@ expression
         };
         $$ = temp;
     }
-    | INTEGER_LITERAL
+    | literal
+
+    literal
+        : INTEGER_LITERAL {
+            $$ = $1;
+        }
 
 %%
 #include "lex.yy.c"
