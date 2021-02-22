@@ -104,11 +104,11 @@
 %%
 
 program: expression {
-    printf("log");
-    //printf("%d",$1.children[1]->type);
-    //printf("%d",$1.children[1]->token);
-    printf("%s",$1.children[0]->content);
-    printf("%s",$1.children[1]->content);
+    printf("log \n");
+    printf("%d\n",$1.children[1]->type);
+    printf("%d\n",$1.children[1]->token);
+    printf("%d\n",$1.children[0]->content);
+    printf("%d\n",$1.children[1]->content);
 };
 
 expression
@@ -134,7 +134,7 @@ expression
     }
     | expression PLUS expression {
         printf("PLUS\n");
-        //printf("hoegehohgoeho %s", $1.content);
+        printf("YACC CONTENT PRINTF %s \n", $1.content);
         AST temp = {
             ASTType::op_add,
             nullptr,

@@ -67,13 +67,11 @@ int yywrap() {
 "return"            return KW_RETURN;
 
 [0-9]+ {
-    printf("INTEGER");
     char* content;
     content = (char*)malloc(sizeof(yytext));
 
     strcpy(content,yytext);
-    printf("%d",content);
-    printf("%d",yytext);
+    printf("LEX CONTENT PRINTF %d %s\n",content, content);
     AST ast = {
         ASTType::integer_literal,
         content,

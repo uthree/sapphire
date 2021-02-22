@@ -1141,11 +1141,11 @@ yyreduce:
   case 2: /* program: expression  */
 #line 106 "parser.y"
                     {
-    printf("log");
-    //printf("%d",$1.children[1]->type);
-    //printf("%d",$1.children[1]->token);
-    printf("%s",(yyvsp[0].ast).children[0]->content);
-    printf("%s",(yyvsp[0].ast).children[1]->content);
+    printf("log \n");
+    printf("%d\n",(yyvsp[0].ast).children[1]->type);
+    printf("%d\n",(yyvsp[0].ast).children[1]->token);
+    printf("%d\n",(yyvsp[0].ast).children[0]->content->children);
+    printf("%d\n",(yyvsp[0].ast).children[1]->content);
 }
 #line 1151 "parser.tab.c"
     break;
@@ -1184,7 +1184,7 @@ yyreduce:
 #line 135 "parser.y"
                                  {
         printf("PLUS\n");
-        //printf("hoegehohgoeho %s", $1.content);
+        printf("YACC CONTENT PRINTF %s \n", (yyvsp[-2].ast).content);
         AST temp = {
             ASTType::op_add,
             nullptr,

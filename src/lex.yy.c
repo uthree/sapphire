@@ -1048,13 +1048,11 @@ case 49:
 YY_RULE_SETUP
 #line 69 "scanner.l"
 {
-    printf("INTEGER");
     char* content;
     content = (char*)malloc(sizeof(yytext));
 
     strcpy(content,yytext);
-    printf("%d",content);
-    printf("%d",yytext);
+    printf("LEX CONTENT PRINTF %d %s\n",content, content);
     AST ast = {
         ASTType::integer_literal,
         content,
@@ -1069,10 +1067,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 89 "scanner.l"
+#line 87 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1076 "lex.yy.c"
+#line 1074 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2069,6 +2067,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 89 "scanner.l"
+#line 87 "scanner.l"
 
 
