@@ -81,7 +81,8 @@
     
     extern "C" void yyerror(char *s);
 
-#line 85 "parser.tab.c"
+
+#line 86 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -549,7 +550,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   106,   106,   115,   125,   135,   146,   156,   159
+       0,   107,   107,   113,   120,   127,   134,   141,   147
 };
 #endif
 
@@ -1139,88 +1140,81 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: expression  */
-#line 106 "parser.y"
+#line 107 "parser.y"
                     {
     printf("log \n");
-    printf("%d\n",(yyvsp[0].ast).children[1]->type);
-    printf("%d\n",(yyvsp[0].ast).children[1]->token);
-    printf("%d\n",(yyvsp[0].ast).children[0]->content->children);
-    printf("%d\n",(yyvsp[0].ast).children[1]->content);
+
 }
-#line 1151 "parser.tab.c"
+#line 1149 "parser.tab.c"
     break;
 
   case 3: /* expression: expression SLASH expression  */
-#line 115 "parser.y"
+#line 113 "parser.y"
                                   {
-        AST* children;
-        AST temp = {
-            ASTType::op_div,
-            nullptr,
-            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
-            false
-        };
-        (yyval.ast) = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&(yyvsp[-2].ast));
+        children.push_back(&(yyvsp[0].ast));
+        AST tmp = AST(ASTType::op_div, children, false, nullptr);
+        (yyval.ast) = &tmp;
     }
-#line 1166 "parser.tab.c"
+#line 1161 "parser.tab.c"
     break;
 
   case 4: /* expression: expression ASTERISK expression  */
-#line 125 "parser.y"
+#line 120 "parser.y"
                                      {
-        AST* children;
-        AST temp = {
-            ASTType::op_mul,
-            nullptr,
-            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
-            false
-        };
-        (yyval.ast) = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&(yyvsp[-2].ast));
+        children.push_back(&(yyvsp[0].ast));
+        AST tmp = AST(ASTType::op_mul, children, false, nullptr);
+        (yyval.ast) = &tmp;
     }
-#line 1181 "parser.tab.c"
+#line 1173 "parser.tab.c"
     break;
 
   case 5: /* expression: expression PLUS expression  */
-#line 135 "parser.y"
+#line 127 "parser.y"
                                  {
-        printf("PLUS\n");
-        printf("YACC CONTENT PRINTF %s \n", (yyvsp[-2].ast).content);
-        AST temp = {
-            ASTType::op_add,
-            nullptr,
-            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
-            false
-        };
-        (yyval.ast) = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&(yyvsp[-2].ast));
+        children.push_back(&(yyvsp[0].ast));
+        AST tmp = AST(ASTType::op_add, children, false, nullptr);
+        (yyval.ast) = &tmp;
+    }
+#line 1185 "parser.tab.c"
+    break;
+
+  case 6: /* expression: expression MINUS expression  */
+#line 134 "parser.y"
+                                  {
+        std::vector<AST*> children = {};
+        children.push_back(&(yyvsp[-2].ast));
+        children.push_back(&(yyvsp[0].ast));
+        AST tmp = AST(ASTType::op_sub, children, false, nullptr);
+        (yyval.ast) = &tmp;
     }
 #line 1197 "parser.tab.c"
     break;
 
-  case 6: /* expression: expression MINUS expression  */
-#line 146 "parser.y"
-                                  {
-        AST* children;
-        AST temp = {
-            ASTType::op_sub,
-            nullptr,
-            {&(yyvsp[-2].ast), &(yyvsp[0].ast)},
-            false
-        };
-        (yyval.ast) = temp;
+  case 7: /* expression: literal  */
+#line 141 "parser.y"
+              {
+        printf("YACC WRAP LITERAL\n");
+        (yyval.ast) = (yyvsp[0].ast);
     }
-#line 1212 "parser.tab.c"
+#line 1206 "parser.tab.c"
     break;
 
   case 8: /* literal: INTEGER_LITERAL  */
-#line 159 "parser.y"
+#line 147 "parser.y"
                           {
             (yyval.ast) = (yyvsp[0].ast);
         }
-#line 1220 "parser.tab.c"
+#line 1214 "parser.tab.c"
     break;
 
 
-#line 1224 "parser.tab.c"
+#line 1218 "parser.tab.c"
 
       default: break;
     }
@@ -1414,7 +1408,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 163 "parser.y"
+#line 151 "parser.y"
 
 #include "lex.yy.c"
 

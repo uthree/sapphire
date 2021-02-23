@@ -10,10 +10,11 @@
     extern "C" FILE *yyin;
     
     extern "C" void yyerror(char *s);
+
 %}
 
 %union {
-    AST ast;
+    AST* ast;
 }
 
 /*
@@ -105,55 +106,42 @@
 
 program: expression {
     printf("log \n");
-    printf("%d\n",$1.children[1]->type);
-    printf("%d\n",$1.children[1]->token);
-    printf("%d\n",$1.children[0]->content);
-    printf("%d\n",$1.children[1]->content);
+
 };
 
 expression
     : expression SLASH expression {
-        AST* children;
-        AST temp = {
-            ASTType::op_div,
-            nullptr,
-            {&$1, &$3},
-            false
-        };
-        $$ = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&$1);
+        children.push_back(&$3);
+        AST tmp = AST(ASTType::op_div, children, false, nullptr);
+        $$ = &tmp;
     }
     | expression ASTERISK expression {
-        AST* children;
-        AST temp = {
-            ASTType::op_mul,
-            nullptr,
-            {&$1, &$3},
-            false
-        };
-        $$ = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&$1);
+        children.push_back(&$3);
+        AST tmp = AST(ASTType::op_mul, children, false, nullptr);
+        $$ = &tmp;
     }
     | expression PLUS expression {
-        printf("PLUS\n");
-        printf("YACC CONTENT PRINTF %s \n", $1.content);
-        AST temp = {
-            ASTType::op_add,
-            nullptr,
-            {&$1, &$3},
-            false
-        };
-        $$ = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&$1);
+        children.push_back(&$3);
+        AST tmp = AST(ASTType::op_add, children, false, nullptr);
+        $$ = &tmp;
     }
     | expression MINUS expression {
-        AST* children;
-        AST temp = {
-            ASTType::op_sub,
-            nullptr,
-            {&$1, &$3},
-            false
-        };
-        $$ = temp;
+        std::vector<AST*> children = {};
+        children.push_back(&$1);
+        children.push_back(&$3);
+        AST tmp = AST(ASTType::op_sub, children, false, nullptr);
+        $$ = &tmp;
     }
-    | literal
+    | literal {
+        printf("YACC WRAP LITERAL\n");
+        $$ = $1;
+    }
 
     literal
         : INTEGER_LITERAL {

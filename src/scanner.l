@@ -67,20 +67,8 @@ int yywrap() {
 "return"            return KW_RETURN;
 
 [0-9]+ {
-    char* content;
-    content = (char*)malloc(sizeof(yytext));
-
-    strcpy(content,yytext);
-    printf("LEX CONTENT PRINTF %d %s\n",content, content);
-    AST ast = {
-        ASTType::integer_literal,
-        content,
-        {},
-        true
-    };
-    ast.content = content;
-    //printf(ast.content);
-    yylval.ast = ast;
+    AST ast = AST(ASTType::integer_literal, nullptr, true, std::string(yytext));
+    yylval.ast = &ast;
     return INTEGER_LITERAL;
 }
 
